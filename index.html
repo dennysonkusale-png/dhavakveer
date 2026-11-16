@@ -496,31 +496,21 @@ footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
 <!-- ======================= NAV ======================= -->
 <header class="topbar">
   <div class="topbar__inner">
-    <a class="brand" href="#home" aria-label="Dhavakveer home">
-      <svg class="brand__mark" viewBox="0 0 48 48" role="img" aria-label="Dhavakveer logo">
-        <rect x="1" y="1" width="46" height="46" rx="14" fill="var(--accent)"/>
-        <path d="M20 13 L33 24 L20 35" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10.5 19 H16.5" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-        <path d="M9 27 H14" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-      </svg>
-      <span class="brand__text">
-        <span class="brand__name">Dhavak<em>veer</em></span>
-        <span class="brand__tag">Run &middot; Believe &middot; Achieve</span>
-      </span>
-    </a>
+    <a class="brand" href="#home"><!--brand--></a>
     <nav class="navlinks" id="nav" aria-label="Sections">
-      <a href="#founder">Founder</a>
-      <a href="#races">Races</a>
-      <a href="#routine">Routine</a>
-      <a href="#plans">Plans</a>
-      <a href="#sprints">Sprints</a>
-      <a href="#pre">Pre-Marathon</a>
-      <a href="#post">Post-Marathon</a>
-      <a href="#community">Community</a>
-      <a href="#tools">Tools</a>
-      <a href="#research">Sources</a>
+      <a href="#founder" data-i18n="k1">Founder</a>
+      <a href="#races" data-i18n="k2">Races</a>
+      <a href="#routine" data-i18n="k3">Routine</a>
+      <a href="#plans" data-i18n="k4">Plans</a>
+      <a href="#sprints" data-i18n="k5">Sprints</a>
+      <a href="#pre" data-i18n="k6">Pre-Marathon</a>
+      <a href="#post" data-i18n="k7">Post-Marathon</a>
+      <a href="#community" data-i18n="k8">Community</a>
+      <a href="#tools" data-i18n="k9">Tools</a>
+      <a href="#research" data-i18n="k10">Sources</a>
     </nav>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle light and dark theme">
+    <select id="langSel" aria-label="Choose language" style="flex-shrink:0;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);font-family:var(--font-body);font-size:12.5px;font-weight:600;padding:0 8px;cursor:pointer"><option value="en">EN</option><option value="mr">मराठी</option><option value="hi">हिंदी</option><option value="sa">संस्कृतम्</option></select>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle light and dark theme">
       <svg class="i-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
       <svg class="i-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
@@ -533,18 +523,18 @@ footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
     <div class="hero__eyebrow anim">Dhavakveer Training Hub</div>
     <h1 class="anim" style="animation-delay:.05s">Train like a <span class="ember">dhavak</span>,<br>race like a warrior.</h1>
     <p class="hero__slogan anim" style="animation-delay:.08s">Run. Believe. Achieve. <span class="ygt">You Got This.</span></p>
-    <p class="hero__lead anim" style="animation-delay:.1s">
+    <p class="hero__lead anim" style="animation-delay:.1s" data-i18n="k11">
       Structured, progressive training plans for every distance — 5K to 100K+ ultra, and track
       sprints from 60m to 400m — built for beginners, intermediate and advanced runners. Plus
       pre-race preparation, post-race recovery, a pace calculator, a training log, and a place
       to share how it's really going.
     </p>
-    <p class="hero__src anim" style="animation-delay:.13s">Every plan here comes from my own experience on the road and trail, combined with online research.</p>
+    <p class="hero__src anim" style="animation-delay:.13s" data-i18n="k12">Every plan here comes from my own experience on the road and trail, combined with online research.</p>
     <div class="hero__cta anim" style="animation-delay:.15s">
       <a class="btn btn--primary" href="#plans">Find your plan
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
       </a>
-      <a class="btn btn--ghost" href="#community">Share your journey</a>
+      <a class="btn btn--ghost" href="#community" data-i18n="k13">Share your journey</a>
     </div>
 
     <div class="hero__stats anim" style="animation-delay:.2s">
@@ -564,49 +554,49 @@ footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
 <!-- ======================= FOUNDER'S PLAN ======================= -->
 <section id="founder" style="background:var(--bg-2)">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">Founder</span><h2>From 10K to 100K — the plan that worked for me</h2></div>
-    <p class="sec-sub">I used to practise Karate in my childhood, but after a gap of many years I started again from scratch — with beginner workouts and running. I began with a single 10K. Three years later I was finishing ultras. What changed wasn't talent — it was a patient, repeatable system that built my endurance and my strength. This is it.</p>
+    <div class="sec-head"><span class="sec-num">Founder</span><h2 data-i18n="k14">From 10K to 100K — the plan that worked for me</h2></div>
+    <p class="sec-sub" data-i18n="k15">I used to practise Karate in my childhood, but after a gap of many years I started again from scratch — with beginner workouts and running. I began with a single 10K. Three years later I was finishing ultras. What changed wasn't talent — it was a patient, repeatable system that built my endurance and my strength. This is it.</p>
 
     <div class="card card--elev" style="max-width:880px">
       <div class="story">
         <span class="story__avatar" aria-hidden="true">DV</span>
         <div>
-          <p>My first 10K felt like the edge of what I could do. So I stopped chasing speed and started chasing distance instead — slowly, one long run at a time, week after week for three years.</p>
-          <p>Along the way I ran a 115&nbsp;km stadium run, a 100&nbsp;km trail through the forests and hills of Mahabaleshwar, and 50K more times than I can count. Nothing about it was clever. I ran a lot of easy kilometres, I ran hills and trails, I lifted weights minimum 4 days a week along with CrossFit workouts and karate exercises, and I never stopped showing up.</p>
-          <p>The plans on this page grew out of that journey. It built my endurance and my strength — and it can build yours.</p>
+          <p data-i18n="k16">My first 10K felt like the edge of what I could do. So I stopped chasing speed and started chasing distance instead — slowly, one long run at a time, week after week for three years.</p>
+          <p data-i18n="k17">Along the way I ran a 115&nbsp;km stadium run, a 100&nbsp;km trail through the forests and hills of Mahabaleshwar, and 50K more times than I can count. Nothing about it was clever. I ran a lot of easy kilometres, I ran hills and trails, I lifted weights minimum 4 days a week along with CrossFit workouts and karate exercises, and I never stopped showing up.</p>
+          <p data-i18n="k18">The plans on this page grew out of that journey. It built my endurance and my strength — and it can build yours.</p>
         </div>
       </div>
       <div class="sign">— Founder, Dhavakveer</div>
     </div>
 
-    <h3 class="sub-h">What built my endurance and strength</h3>
-    <p class="sub-note">Seven things did almost all of the work. None of them are complicated — the hard part is doing them for years.</p>
+    <h3 class="sub-h" data-i18n="k19">What built my endurance and strength</h3>
+    <p class="sub-note" data-i18n="k20">Seven things did almost all of the work. None of them are complicated — the hard part is doing them for years.</p>
     <div class="grid g3">
-      <div class="phase-card"><h3>Volume before speed</h3><div class="when">The base</div><ul><li>Most of my running was <strong>easy and conversational</strong>. Distance came from many gentle kilometres, not many hard ones.</li></ul></div>
-      <div class="phase-card"><h3>The long run is king</h3><div class="when">Every week</div><ul><li>One <strong>long, slow run</strong> a week. That single session built the endurance everything else stood on.</li></ul></div>
-      <div class="phase-card"><h3>Hills &amp; trails</h3><div class="when">Strength</div><ul><li>The climbs of Mahabaleshwar did more for my legs than any machine. <strong>Hills and uneven trail</strong> built strength and resilience.</li></ul></div>
-      <div class="phase-card"><h3>Back-to-back long runs</h3><div class="when">Ultra prep</div><ul><li>Long on Saturday, long again on Sunday. It taught my body to keep going on <strong>tired legs</strong> — exactly what 50K and 100K demand.</li></ul></div>
-      <div class="phase-card"><h3>Strength training</h3><div class="when">Four days a week</div><ul><li>Gym work at least <strong>four days a week</strong>, alongside CrossFit and karate exercises — squats, single-leg work and core kept me injury-free through huge mileage.</li></ul></div>
-      <div class="phase-card"><h3>Consistency over intensity</h3><div class="when">The secret</div><ul><li>I built over <strong>years, not weeks</strong>. Showing up week after week is the whole trick.</li></ul></div>
-      <div class="phase-card"><h3>Bodyweight &amp; yoga</h3><div class="when">When not in the gym</div><ul><li>On non-gym days I still do <strong>100 push-ups, 100 squats and 100 ab exercises</strong> — varying the movements so it never gets stale.</li><li>Yoga <strong>twice a week</strong> — Surya Namaskar, pranayam and other asanas — plus stretching on rest days.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k21">Volume before speed</h3><div class="when" data-i18n="k22">The base</div><ul><li>Most of my running was <strong>easy and conversational</strong>. Distance came from many gentle kilometres, not many hard ones.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k23">The long run is king</h3><div class="when" data-i18n="k24">Every week</div><ul><li>One <strong>long, slow run</strong> a week. That single session built the endurance everything else stood on.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k25">Hills &amp; trails</h3><div class="when" data-i18n="k26">Strength</div><ul><li>The climbs of Mahabaleshwar did more for my legs than any machine. <strong>Hills and uneven trail</strong> built strength and resilience.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k27">Back-to-back long runs</h3><div class="when" data-i18n="k28">Ultra prep</div><ul><li>Long on Saturday, long again on Sunday. It taught my body to keep going on <strong>tired legs</strong> — exactly what 50K and 100K demand.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k29">Strength training</h3><div class="when" data-i18n="k30">Four days a week</div><ul><li>Gym work at least <strong>four days a week</strong>, alongside CrossFit and karate exercises — squats, single-leg work and core kept me injury-free through huge mileage.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k31">Consistency over intensity</h3><div class="when" data-i18n="k32">The secret</div><ul><li>I built over <strong>years, not weeks</strong>. Showing up week after week is the whole trick.</li></ul></div>
+      <div class="phase-card"><h3 data-i18n="k33">Bodyweight &amp; yoga</h3><div class="when" data-i18n="k34">When not in the gym</div><ul><li>On non-gym days I still do <strong>100 push-ups, 100 squats and 100 ab exercises</strong> — varying the movements so it never gets stale.</li><li>Yoga <strong>twice a week</strong> — Surya Namaskar, pranayam and other asanas — plus stretching on rest days.</li></ul></div>
     </div>
 
-    <h3 class="sub-h">The three-year build</h3>
-    <p class="sub-note">How the distances grew — gradually, with each year resting on the one before it.</p>
+    <h3 class="sub-h" data-i18n="k35">The three-year build</h3>
+    <p class="sub-note" data-i18n="k36">How the distances grew — gradually, with each year resting on the one before it.</p>
     <div class="table-scroll"><table class="data" style="min-width:720px">
-      <thead><tr><th>Year</th><th>Focus</th><th>Longest run</th><th>Peak weekly volume</th><th>Milestones</th></tr></thead>
+      <thead><tr><th data-i18n="k37">Year</th><th data-i18n="k38">Focus</th><th data-i18n="k39">Longest run</th><th data-i18n="k40">Peak weekly volume</th><th data-i18n="k41">Milestones</th></tr></thead>
       <tbody>
-        <tr><td class="wk">Year 1</td><td>Build the base</td><td>~25 km</td><td class="total">40–60 km</td><td class="focus">First 10K → Half → first Marathon</td></tr>
-        <tr><td class="wk">Year 2</td><td>Endurance &amp; strength</td><td>35–40 km</td><td class="total">60–90 km</td><td class="focus">50K, run several times</td></tr>
-        <tr><td class="wk">Year 3</td><td>Ultra &amp; trail</td><td>50 km+ with back-to-backs</td><td class="total">90–130 km</td><td class="focus">111 km stadium run · 100 km Mahabaleshwar trail</td></tr>
+        <tr><td class="wk" data-i18n="k42">Year 1</td><td data-i18n="k43">Build the base</td><td data-i18n="k44">~25 km</td><td class="total" data-i18n="k45">40–60 km</td><td class="focus" data-i18n="k46">First 10K → Half → first Marathon</td></tr>
+        <tr><td class="wk" data-i18n="k47">Year 2</td><td data-i18n="k48">Endurance &amp; strength</td><td data-i18n="k49">35–40 km</td><td class="total" data-i18n="k50">60–90 km</td><td class="focus" data-i18n="k51">50K, run several times</td></tr>
+        <tr><td class="wk" data-i18n="k52">Year 3</td><td data-i18n="k53">Ultra &amp; trail</td><td data-i18n="k54">50 km+ with back-to-backs</td><td class="total" data-i18n="k55">90–130 km</td><td class="focus" data-i18n="k56">111 km stadium run · 100 km Mahabaleshwar trail</td></tr>
       </tbody>
     </table></div>
 
-    <h3 class="sub-h">A typical week in my build</h3>
-    <p class="sub-note">My standard rhythm in a peak block. On easier weeks I cut the volume, never the habit.</p>
+    <h3 class="sub-h" data-i18n="k57">A typical week in my build</h3>
+    <p class="sub-note" data-i18n="k58">My standard rhythm in a peak block. On easier weeks I cut the volume, never the habit.</p>
     <div class="week-grid">
-      <div class="day"><span class="day__name">Mon</span><span class="day__sess">Rest, or easy 6–8 km recovery</span></div>
-      <div class="day"><span class="day__name">Tue</span><span class="day__sess">Easy 10–12 km + core</span></div>
+      <div class="day"><span class="day__name">Mon</span><span class="day__sess" data-i18n="k59">Rest, or easy 6–8 km recovery</span></div>
+      <div class="day"><span class="day__name">Tue</span><span class="day__sess" data-i18n="k60">Easy 10–12 km + core</span></div>
       <div class="day"><span class="day__name">Wed</span><span class="day__sess">Hill repeats or tempo, 12–14 km — no hills? do lunges</span></div>
       <div class="day"><span class="day__name">Thu</span><span class="day__sess">Easy 10–12 km + gym (squats, single-leg)</span></div>
       <div class="day"><span class="day__name">Fri</span><span class="day__sess">Rest, easy 8 km, yoga or stretching</span></div>
@@ -982,7 +972,7 @@ footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
         <div class="filters" id="feedFilters" role="group" aria-label="Filter posts">
           <span class="mono dim" style="font-size:11px;letter-spacing:1px;text-transform:uppercase">Show:</span>
           <button class="chip" data-filter="all" aria-pressed="true">All</button>
-          <button class="chip" data-filter="plan" aria-pressed="false">Plans</button>
+          <button class="chip" data-filter="plan" aria-pressed="false" data-i18n="k4">Plans</button>
           <button class="chip" data-filter="experience" aria-pressed="false">Experiences</button>
           <button class="chip" data-filter="feeling" aria-pressed="false">Feelings</button>
         </div>
@@ -1130,16 +1120,16 @@ footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
       <p style="margin-top:14px">General training guidance for runners, built from my own running experience and publicly available research — see <a href="#research">Research &amp; sources</a>. Not medical advice. Consult a qualified professional before starting a new programme. Community posts and your log are stored only in your own browser.</p>
     </div>
     <div class="foot__links">
-      <a href="#founder">Founder</a>
-      <a href="#races">Races</a>
-      <a href="#routine">Routine</a>
-      <a href="#plans">Plans</a>
-      <a href="#sprints">Sprints</a>
-      <a href="#pre">Pre-Marathon</a>
-      <a href="#post">Post-Marathon</a>
-      <a href="#community">Community</a>
-      <a href="#tools">Tools</a>
-      <a href="#research">Sources</a>
+      <a href="#founder" data-i18n="k1">Founder</a>
+      <a href="#races" data-i18n="k2">Races</a>
+      <a href="#routine" data-i18n="k3">Routine</a>
+      <a href="#plans" data-i18n="k4">Plans</a>
+      <a href="#sprints" data-i18n="k5">Sprints</a>
+      <a href="#pre" data-i18n="k6">Pre-Marathon</a>
+      <a href="#post" data-i18n="k7">Post-Marathon</a>
+      <a href="#community" data-i18n="k8">Community</a>
+      <a href="#tools" data-i18n="k9">Tools</a>
+      <a href="#research" data-i18n="k10">Sources</a>
     </div>
   </div>
 </footer>
@@ -1995,6 +1985,29 @@ function fmtRaceDate(iso){
   });
 })();
 
+})();
+</script>
+<script>
+(function(){
+var I18N={mr:{"k1": "संस्थापक", "k2": "शर्यती", "k3": "दिनचर्या", "k4": "योजना", "k5": "स्प्रिंट्स", "k6": "प्री-मॅरेथॉन", "k7": "पोस्ट-मॅरेथॉन", "k8": "समुदाय", "k9": "साधने", "k10": "स्रोत", "k11": "प्रत्येक अंतरासाठी संरचित, प्रगतीशील प्रशिक्षण योजना — 5K पासून 100K+ अल्ट्रापर्यंत, आणि 60m पासून 400m पर्यंत ट्रॅक स्प्रिंट्स — नवशिक्या, मध्यम आणि प्रगत धावपटूंसाठी तयार केलेल्या. याव्यतिरिक्त शर्यतीपूर्वीची तयारी, शर्यतीनंतरची रिकव्हरी, एक पेस कॅल्क्युलेटर, एक ट्रेनिंग लॉग, आणि गोष्टी खरोखर कशा चालल्या आहेत हे शेअर करण्यासाठी एक जागा.", "k12": "येथे असलेली प्रत्येक योजना रस्त्यावरील आणि ट्रेलवरील माझ्या स्वतःच्या अनुभवातून, ऑनलाइन संशोधनासोबत तयार केली आहे.", "k13": "तुमचा प्रवास शेअर करा", "k14": "10K पासून 100K पर्यंत — जी योजना माझ्यासाठी कामी आली", "k15": "मी लहानपणी कराटेचा सराव करायचो, पण अनेक वर्षांच्या खंडानंतर मी पुन्हा शून्यातून सुरुवात केली — नवशिक्यांचे वर्कआउट्स आणि रनिंगसह. मी एका 10K पासून सुरुवात केली. तीन वर्षांनंतर मी अल्ट्रा शर्यती पूर्ण करत होतो. बदललेली गोष्ट म्हणजे टॅलेंट नाही — तर एक संयमी, पुनरावृत्ती करण्यायोग्य प्रणाली होती जिने माझी सहनशक्ती आणि ताकद वाढवली. तीच ही आहे.", "k16": "माझा पहिला 10K मला माझ्या क्षमतेची अंतिम मर्यादा असल्यासारखा वाटला. म्हणून मी वेगाच्या मागे धावणे थांबवले आणि त्याऐवजी अंतराच्या मागे धावण्यास सुरुवात केली — हळूहळू, एका वेळी एक लांब धाव, तीन वर्षे दर आठवड्याला.", "k17": "या प्रवासात मी 115 किमी स्टेडियम रन, महाबळेश्वरच्या जंगलांमधून आणि टेकड्यांमधून 100 किमी ट्रेल रन, आणि मोजता येणार नाहीत एवढ्या वेळा 50K धावलो. यात काहीही हुशारी नव्हती. मी भरपूर सोप्या किलोमीटर धावलो, मी टेकड्या आणि ट्रेलवर धावलो, मी आठवड्यातून किमान 4 दिवस क्रॉसफिट वर्कआउट्स आणि कराटे व्यायामांसह वजन उचलले, आणि मी कधीही सराव सोडला नाही.", "k18": "या पेजवरील योजना त्या प्रवासातूनच तयार झाल्या आहेत. त्याने माझी सहनशक्ती आणि ताकद वाढवली — आणि ती तुमचीही वाढवू शकते.", "k19": "माझी सहनशक्ती आणि ताकद कशामुळे वाढली", "k20": "सात गोष्टींनी जवळजवळ सर्व काम केले. त्यापैकी कोणतीही गुंतागुंतीची नाही — कठीण भाग म्हणजे ती वर्षानुवर्षे करणे.", "k21": "वेगापूर्वी आकारमान", "k22": "बेस", "k23": "लांब धाव ही राजा आहे", "k24": "दर आठवड्याला", "k25": "टेकड्या आणि ट्रेल", "k26": "ताकद", "k27": "सलग लांब धाव", "k28": "अल्ट्रा तयारी", "k29": "स्ट्रेंथ ट्रेनिंग", "k30": "आठवड्यातून चार दिवस", "k31": "तीव्रतेपेक्षा सातत्य", "k32": "रहस्य", "k33": "बॉडीवेट आणि योग", "k34": "जेव्हा जिममध्ये नसतो तेव्हा", "k35": "तीन वर्षांची उभारणी", "k36": "अंतर कसे वाढले — हळूहळू, प्रत्येक वर्ष मागील वर्षावर आधारित.", "k37": "वर्ष", "k38": "लक्ष", "k39": "सर्वात लांब धाव", "k40": "सर्वोच्च साप्ताहिक आकारमान", "k41": "टप्पे", "k42": "वर्ष 1", "k43": "बेस तयार करा", "k44": "~25 किमी", "k45": "40–60 किमी", "k46": "पहिले 10K → हाफ → पहिले मॅरेथॉन", "k47": "वर्ष 2", "k48": "सहनशक्ती आणि ताकद", "k49": "35–40 किमी", "k50": "60–90 किमी", "k51": "50K, अनेक वेळा धावणे", "k52": "वर्ष 3", "k53": "अल्ट्रा आणि ट्रेल", "k54": "सलग धावण्यासह 50 किमी+", "k55": "90–130 किमी", "k56": "111 किमी स्टेडियम रन · 100 किमी महाबळेश्वर ट्रेल", "k57": "माझ्या उभारणीतील एक सामान्य आठवडा", "k58": "पीक ब्लॉकमधील माझी मानक लय. सोप्या आठवड्यांमध्ये मी आकारमान कमी करतो, सवय कधीच नाही.", "k59": "विश्रांती, किंवा सोपी 6–8 किमी रिकव्हरी", "k60": "सोपी 10–12 किमी + कोर"},hi:{"k1": "संस्थापक", "k2": "रेस", "k3": "रूटीन", "k4": "प्लान्स", "k5": "स्प्रिंट्स", "k6": "प्री-मैराथन", "k7": "पोस्ट-मैराथन", "k8": "कम्युनिटी", "k9": "टूल्स", "k10": "स्रोत", "k11": "हर दूरी के लिए स्ट्रक्चर्ड और प्रोग्रेसिव ट्रेनिंग प्लान — 5K से लेकर 100K+ अल्ट्रा तक, और ट्रैक स्प्रिंट्स 60m से 400m तक — जो शुरुआती, इंटरमीडिएट और एडवांस रनर्स के लिए बनाए गए हैं। साथ ही प्री-रेस तैयारी, पोस्ट-रेस रिकवरी, एक पेस कैलकुलेटर, एक ट्रेनिंग लॉग, और अपनी प्रोग्रेस शेयर करने की एक जगह।", "k12": "यहाँ का हर प्लान सड़क और ट्रेल पर मेरे अपने अनुभव के साथ-साथ ऑनलाइन रिसर्च से तैयार किया गया है।", "k13": "अपना सफर शेयर करें", "k14": "10K से 100K तक — वह प्लान जिसने मेरे लिए काम किया", "k15": "बचपन में मैं कराटे की प्रैक्टिस करता था, लेकिन कई सालों के गैप के बाद मैंने फिर से बिल्कुल शुरुआत से — शुरुआती वर्कआउट्स और रनिंग के साथ शुरू किया। मैंने एक सिंगल 10K से शुरुआत की। तीन साल बाद मैं अल्ट्रा रन खत्म कर रहा था। जो चीज़ बदली वह टैलेंट नहीं था — बल्कि एक धैर्यपूर्ण और दोहराया जा सकने वाला सिस्टम था जिसने मेरी एंड्योरेंस और स्ट्रेंथ को बढ़ाया। यह वही है।", "k16": "मेरा पहला 10K ऐसा लगा जैसे मेरी क्षमता की आखिरी सीमा हो। इसलिए मैंने स्पीड के पीछे भागना छोड़ दिया और उसकी जगह दूरी को बढ़ाने पर ध्यान दिया — धीरे-धीरे, एक बार में एक लंबी रन, तीन साल तक हर हफ्ते।", "k17": "इस सफर में मैंने 115 किमी की स्टेडियम रन, महाबलेश्वर के जंगलों और पहाड़ियों के बीच से होकर 100 किमी की ट्रेल रन दौड़ लगाई, और 50K कई बार दौड़ा जिसका मैं हिसाब भी नहीं रख सकता। इसमें कुछ भी चालाकी भरा नहीं था। मैंने बहुत सारे आसान किलोमीटर दौड़े, पहाड़ियों और ट्रेल पर दौड़ा, क्रॉसफिट वर्कआउट्स और कराटे एक्सरसाइज के साथ हफ्ते में कम से कम 4 दिन वेट लिफ्टिंग की, और मैं कभी भी मैदान में उतरना नहीं भूला।", "k18": "इस पेज पर दिए गए प्लान्स उसी सफर से निकले हैं। इसने मेरी एंड्योरेंस और स्ट्रेंथ को बढ़ाया — और यह आपकी भी बढ़ा सकता है।", "k19": "मेरी एंड्योरेंस और स्ट्रेंथ को किसने बढ़ाया", "k20": "सात चीज़ों ने लगभग सारा काम किया। उनमें से कोई भी मुश्किल नहीं है — मुश्किल काम उन्हें सालों तक करना है।", "k21": "स्पीड से पहले वॉल्यूम", "k22": "बेस", "k23": "लंबी रन ही राजा है", "k24": "हर हफ्ते", "k25": "पहाड़ियाँ और ट्रेल", "k26": "स्ट्रेंथ", "k27": "बैक-टू-बैक लंबी रन्स", "k28": "अल्ट्रा की तैयारी", "k29": "स्ट्रेंथ ट्रेनिंग", "k30": "हफ्ते में चार दिन", "k31": "इंटेंसिटी से ज्यादा कंसिस्टेंसी", "k32": "राज़", "k33": "बॉडीवेट और योग", "k34": "जब जिम न हों", "k35": "तीन साल का निर्माण", "k36": "दूरियाँ कैसे बढ़ीं — धीरे-धीरे, हर साल पिछले साल के बेस पर टिककर।", "k37": "साल", "k38": "फोकस", "k39": "सबसे लंबी रन", "k40": "पीक वीकली वॉल्यूम", "k41": "माइलस्टोन", "k42": "साल 1", "k43": "बेस बनाएं", "k44": "~25 km", "k45": "40–60 km", "k46": "पहला 10K → हाफ → पहला मैराथन", "k47": "साल 2", "k48": "एंड्योरेंस और स्ट्रेंथ", "k49": "35–40 km", "k50": "60–90 km", "k51": "50K, कई बार दौड़ें", "k52": "साल 3", "k53": "अल्ट्रा और ट्रेल", "k54": "बैक-टू-बैक के साथ 50 km+", "k55": "90–130 km", "k56": "111 km स्टेडियम रन · 100 km महाबलेश्वर ट्रेल", "k57": "मेरे निर्माण में एक आम हफ्ता", "k58": "पीक ब्लॉक में मेरी स्टैंडर्ड लय। आसान हफ्तों में मैं वॉल्यूम कम करता हूँ, आदत कभी नहीं।", "k59": "आराम, या आसान 6–8 km रिकवरी", "k60": "आसान 10–12 km + कोर"},sa:{"k1": "संस्थापकः", "k2": "धावनानि", "k3": "दिनचर्या", "k4": "योजनाः", "k5": "धावनानि (स्प्रिन्ट्स्)", "k6": "पूर्व-मराथनम्", "k7": "पश्चात्-मराथनम्", "k8": "समुदायः", "k9": "उपकरणानि", "k10": "स्रोतांसि", "k11": "प्रत्येकं दूरत्वार्थं संरचितम्, क्रमिकं प्रशिक्षणयोजना — 5K तः 100K+ अल्ट्रा पर्यन्तम्, तथा 60m तः 400m पर्यन्तं ट्रैक-धावनम् — नवशिक्षार्थिभ्यः, मध्यमाभ्यः, उन्नतधावकेभ्यः च निर्मितम्। अपि च, पूर्व-धावन-सज्जता, पश्चात्-धावन-पुनर्लाभः, वेग-गणकम्, प्रशिक्षण-दैनन्दिनी, तथा वास्तविकस्थितिं साझां कर्तुम् एकं स्थानम्।", "k12": "अत्र प्रत्येकं योजना मार्गे ममानुभवात्, अन्तर्जाल-अनुसन्धानात् च सङ्कलिता अस्ति।", "k13": "स्वस्य यात्रां साझां कुर्वन्तु", "k14": "10K तः 100K पर्यन्तम् - या योजना मह्यं सफला अभवत्", "k15": "बाल्यकाले अहं कराटे-क्रीडायाः अभ्यासम् अकरवम्, परन्तु बहुवर्षेभ्यः परं पुनः आरम्भिक-व्यायाम-धावन-प्रक्रियाभ्यां शून्यतः आरब्धवान्। मया एकया 10K-धावनया आरम्भः कृतः। त्रिवर्षाणाम् अनन्तरम् अहं अल्ट्रा-धावनानि समापयामि स्म। यत् परिवर्तितं तत् प्रतिभा नासीत् - तत् एकं धैर्यपूर्णं, पुनरावृत्तियोग्यं तन्त्रम् आसीत् येन मम सहनशक्तिः बलञ्च वर्धितम्। एषा एव सा।", "k16": "मम प्रथमं 10K अहं यत् कर्तुं शक्नोमि स्म तस्य सीमा इव अनुभूतम्। अतः अहं वेगस्य अनुसरणं त्यक्त्वा तस्य स्थाने दूरत्वस्य अनुसरणं आरब्धवान् - शनैः शनैः, एकस्मिन् समये एकं दीर्घं धावनम्, त्रिवर्षेभ्यः प्रतिसप्ताहम्।", "k17": "मार्गे अहं 115 km क्रीडाङ्गण-धावनं, महाबलेश्वर-वन-पर्वत-क्षेत्राणां माध्यमेन 100 km ट्रेल-धावनं, तथा गणनीय-अपेक्षया अधिकवारं 50K धावितवान्। अत्र किमपि चतुरं नासीत्। अहं बहूनि सरलानि किलोमीटर्-दूरानि धावितवान्, पर्वतान् मार्गान् च धावितवान्, CrossFit-व्यायामैः कराटे-अभ्यासैः च सह न्यूनतमं सप्ताहे 4 दिनानि भारोत्तोलनं कृतवान्, तथा च कदापि अभ्यासम् न त्यक्तवान्।", "k18": "अस्य पृष्ठस्य योजनाः तस्याः यात्रायाः उत्पन्नाः। तया मम सहनशक्तिः बलञ्च वर्धितम् - सा भवतः अपि वर्धयितुं शक्नोति।", "k19": "मम सहनशक्तिः बलञ्च केन वर्धिता", "k20": "सप्त विषयाः प्रायः सर्वं कार्यम् अकुर्वन्। तेषु कोऽपि जटिलः नास्ति - कठिनः भागः वर्षान् यावत् तेषां करणे अस्ति।", "k21": "वेगात् पूर्वं मात्रा (Volume)", "k22": "आधारः", "k23": "दीर्घं धावनं श्रेष्ठम्", "k24": "प्रतिसप्ताहम्", "k25": "पर्वताः मार्गाश्च", "k26": "बलम्", "k27": "निरन्तरं दीर्घ-धावनानि", "k28": "अल्ट्रा-सज्जता", "k29": "बल-प्रशिक्षणम्", "k30": "सप्ताहे चत्वारि दिनानि", "k31": "तीव्रतेः अपेक्षया निरन्तरता", "k32": "रहस्यम्", "k33": "शरीर-भारः योगश्च", "k34": "यदा व्यायामशालायां न भवेत्", "k35": "त्रिवर्षीयः विकासः", "k36": "दूरत्वानि कथं वर्धितानि - क्रमेण, प्रत्येकं वर्षं पूर्ववर्षस्य उपरि आधारितम्।", "k37": "वर्षम्", "k38": "केन्द्रबिन्दुः", "k39": "दीर्घतमं धावनम्", "k40": "शिखर-साप्ताहिक-मात्रा", "k41": "लक्ष्याणि", "k42": "वर्षम् 1", "k43": "आधारस्य निर्माणम्", "k44": "~25 km", "k45": "40–60 km", "k46": "प्रथमं 10K → अर्धम् → प्रथमं माराथनम्", "k47": "वर्षम् 2", "k48": "सहनशक्तिः बलञ्च", "k49": "35–40 km", "k50": "60–90 km", "k51": "50K, अनेकवारं धावनम्", "k52": "वर्षम् 3", "k53": "अल्ट्रा तथा ट्रेल", "k54": "निरन्तर-धावनैः सह 50 km+", "k55": "90–130 km", "k56": "111 km क्रीडाङ्गण-धावनम् · 100 km महाबलेश्वर-ट्रेल", "k57": "मम विकासे एकः सामान्यः सप्ताहः", "k58": "शिखर-खण्डे मम मानक-लयः। सरल-सप्ताहेषु अहं मात्रां न्यूनीकरोमि, न तु अभ्यासम्।", "k59": "विश्रामः, अथवा सरलः 6–8 km पुनर्लाभः", "k60": "सरलः 10–12 km + कोर"}};
+var EN={};
+var nodes=document.querySelectorAll("[data-i18n]");
+for(var i=0;i<nodes.length;i++){EN[nodes[i].getAttribute("data-i18n")]=nodes[i].innerHTML;}
+function applyLang(l){
+  for(var i=0;i<nodes.length;i++){
+    var el=nodes[i],k=el.getAttribute("data-i18n");
+    var v=(l!=="en"&&I18N[l])?I18N[l][k]:null;
+    if(v){el.textContent=v;}else{el.innerHTML=EN[k];}
+  }
+  document.documentElement.lang=(l==="en")?"en":l;
+  try{localStorage.setItem("dv_lang",l);}catch(e){}
+}
+var sel=document.getElementById("langSel");
+if(sel){
+  sel.addEventListener("change",function(){applyLang(sel.value);});
+  var saved="en";try{saved=localStorage.getItem("dv_lang")||"en";}catch(e){}
+  if(I18N[saved]){sel.value=saved;applyLang(saved);}
+}
 })();
 </script>
 </body>
