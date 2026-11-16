@@ -1534,7 +1534,7 @@ var COMMUNITY=(function(){
       if(p.distance)meta+='<span class="tag">'+esc(p.distance)+'</span>';
       if(p.level)meta+='<span class="tag">'+esc(p.level)+'</span>';
       if(p.mood)meta+='<span class="tag tag--amber">Feeling: '+esc(p.mood)+'</span>';
-      var del=(p.uid===myUid)?'<button class="btn btn--danger post__del" data-del="'+p.id+'">Delete</button>':'';
+      var del=canDelete(p)?'<button class="btn btn--danger post__del" data-del="'+p.id+'" data-uid="'+p.uid+'">Delete</button>':'';
       var pid='share-post-'+p.id;
       return '<article class="post">'+
         '<div class="post__top"><span class="post__avatar">'+esc(initial)+'</span>'+
@@ -1549,10 +1549,20 @@ var COMMUNITY=(function(){
     }).join('');
   }
 
+  // Only the post's author, or the site owner, may delete a post.
+  function canDelete(p){
+    if(!p)return false;
+    if(p.uid===myUid)return true;                       // you wrote it
+    return /^denny(\s+sonkusale)?$/i.test((p.name||'').trim()); // site owner
+  }
+
   feed.addEventListener('click',function(e){
     var btn=e.target.closest('[data-del]');
     if(!btn)return;
     var id=btn.getAttribute('data-del');
+    var target=null;
+    for(var i=0;i<posts.length;i++){if(posts[i].id===id){target=posts[i];break;}}
+    if(!canDelete(target)){alert('You can only delete your own posts.');return;}
     if(!window.confirm('Delete this post?'))return;
     posts=posts.filter(function(p){return p.id!==id;});
     save(posts);render();
