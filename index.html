@@ -1597,11 +1597,21 @@ var COMMUNITY=(function(){
       mood:selectedMood,content:content,ts:Date.now()
     });
     save(posts);render();
+    var newId=posts[posts.length-1].id;
     e.target.reset();
     selectedMood='';
     [].slice.call(moodRow.querySelectorAll('.mood-btn')).forEach(function(x){x.setAttribute('aria-pressed','false');});
-    msg.textContent='Posted — thank you for sharing!';
-    setTimeout(function(){msg.textContent='';},4000);
+    // Open the new post's share row straight away so it can go to social media
+    var panel=document.getElementById('share-post-'+newId);
+    if(panel){
+      panel.hidden=false;
+      var postEl=panel.closest('.post');
+      var tog=postEl?postEl.querySelector('.share-toggle'):null;
+      if(tog)tog.setAttribute('aria-expanded','true');
+      if(postEl&&postEl.scrollIntoView)postEl.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    msg.textContent='Posted! Share it with your friends \u2192';
+    setTimeout(function(){msg.textContent='';},6000);
   });
 
   render();
