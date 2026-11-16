@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dhavakveer — Marathon &amp; Ultra Training Hub</title>
+<meta name="description" content="Dhavakveer — training plans for 5K to ultra, pre and post-marathon guidance, a pace calculator and a community of runners.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Dhavakveer — design tokens
+   Warm ember + deep teal on a paper-ink base. Light-first.
+   ============================================================ */
+:root{
+  --font-body:'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display:'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:'Azeret Mono', 'SF Mono', Consolas, monospace;
+
+  --bg:#f7f4ee;
+  --bg-2:#f1ece2;
+  --surface:#ffffff;
+  --surface-2:#faf8f3;
+  --border:rgba(40,28,16,0.10);
+  --border-bright:rgba(40,28,16,0.20);
+  --text:#231c14;
+  --text-dim:#736758;
+  --text-bright:#160f09;
+
+  --accent:#d9480f;         /* ember */
+  --accent-soft:#f76707;
+  --accent-dim:rgba(217,72,15,0.10);
+  --accent-2:#0f766e;       /* deep teal */
+  --accent-2-dim:rgba(15,118,110,0.10);
+  --amber:#b45309;
+  --amber-dim:rgba(180,83,9,0.12);
+  --green:#15803d;
+  --green-dim:rgba(21,128,61,0.10);
+  --red:#b91c1c;
+  --red-dim:rgba(185,28,28,0.10);
+
+  --shadow-sm:0 1px 2px rgba(35,24,12,0.06);
+  --shadow:0 3px 14px rgba(35,24,12,0.08), 0 1px 3px rgba(35,24,12,0.05);
+  --shadow-lg:0 18px 48px rgba(35,24,12,0.14), 0 3px 10px rgba(35,24,12,0.06);
+  --radius:14px;
+  --radius-sm:9px;
+  --maxw:1180px;
+}
+[data-theme="dark"]{
+  --bg:#14110d;
+  --bg-2:#1a1611;
+  --surface:#1e1a15;
+  --surface-2:#241f19;
+  --border:rgba(255,244,230,0.09);
+  --border-bright:rgba(255,244,230,0.18);
+  --text:#f2eae0;
+  --text-dim:#a2968699;
+  --text-bright:#fff8ef;
+
+  --accent:#ff7a45;
+  --accent-soft:#ff9563;
+  --accent-dim:rgba(255,122,69,0.14);
+  --accent-2:#2dd4bf;
+  --accent-2-dim:rgba(45,212,191,0.14);
+  --amber:#fbbf24;
+  --amber-dim:rgba(251,191,36,0.14);
+  --green:#4ade80;
+  --green-dim:rgba(74,222,128,0.14);
+  --red:#f87171;
+  --red-dim:rgba(248,113,113,0.14);
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow:0 3px 16px rgba(0,0,0,0.4);
+  --shadow-lg:0 20px 50px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--text);
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse 900px 520px at 82% -8%, var(--accent-dim), transparent 70%),
+    radial-gradient(ellipse 720px 460px at 4% 6%, var(--accent-2-dim), transparent 72%);
+  background-attachment:fixed;
+  line-height:1.6;
+  overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.12;margin:0;letter-spacing:-0.01em}
+a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:2px}
+a:hover{color:var(--accent-soft)}
+img,svg{max-width:100%}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.mono{font-family:var(--font-mono)}
+.dim{color:var(--text-dim)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Top navigation ---------- */
+.topbar{
+  position:sticky;top:0;z-index:120;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.topbar__inner{display:flex;align-items:center;gap:18px;height:66px;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.brand__mark{width:38px;height:38px;flex-shrink:0;filter:drop-shadow(0 3px 8px var(--accent-dim))}
+.brand__text{display:flex;flex-direction:column;line-height:1}
+.brand__name{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-0.02em;color:var(--text-bright)}
+.brand__name em{color:var(--accent);font-style:normal}
+.brand__tag{font-family:var(--font-mono);font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-top:3px}
+.navlinks{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{
+  font-size:12.8px;font-weight:600;color:var(--text-dim);text-decoration:none;
+  padding:8px 10px;border-radius:8px;white-space:nowrap;transition:all .15s ease;
+}
+.navlinks a:hover{color:var(--text);background:var(--surface)}
+.navlinks a.active{color:var(--accent);background:var(--accent-dim)}
+.theme-btn{
+  flex-shrink:0;width:38px;height:38px;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text-dim);cursor:pointer;display:grid;place-items:center;
+  transition:all .15s ease;
+}
+.theme-btn:hover{color:var(--accent);border-color:var(--border-bright)}
+[data-theme="light"] .theme-btn .i-moon{display:none}
+[data-theme="dark"] .theme-btn .i-sun{display:none}
+
+/* ---------- Section scaffolding ---------- */
+section{padding:58px 0;scroll-margin-top:74px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.sec-num{font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--accent);
+  border:1px solid var(--border-bright);border-radius:7px;padding:2px 9px;flex-shrink:0}
+.sec-head h2{font-size:clamp(26px,3.4vw,38px);font-weight:800}
+.sec-sub{color:var(--text-dim);font-size:16px;max-width:70ch;margin:6px 0 26px}
+
+/* ---------- Buttons / pills ---------- */
+.btn{
+  font-family:var(--font-body);font-weight:600;font-size:14.5px;border-radius:10px;cursor:pointer;
+  border:1px solid transparent;padding:11px 20px;display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
+  transition:transform .12s ease, box-shadow .2s ease, background .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn--primary{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+.btn--primary:hover{background:var(--accent-soft);color:#fff;box-shadow:var(--shadow-lg)}
+.btn--ghost{background:var(--surface);color:var(--text);border-color:var(--border-bright)}
+.btn--ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn--danger{background:transparent;color:var(--red);border-color:var(--red-dim);padding:6px 12px;font-size:12.5px}
+.btn--danger:hover{background:var(--red-dim)}
+
+.seg{display:inline-flex;gap:5px;padding:5px;background:var(--surface);border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow-sm);flex-wrap:wrap}
+.seg button{
+  font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--text-dim);background:transparent;
+  border:none;border-radius:9px;padding:9px 18px;cursor:pointer;transition:all .15s ease;
+}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff;box-shadow:var(--shadow-sm)}
+
+.tag{font-family:var(--font-mono);font-size:10.5px;font-weight:500;padding:3px 8px;border-radius:6px;
+  background:var(--accent-2-dim);color:var(--accent-2);white-space:nowrap}
+.tag--ember{background:var(--accent-dim);color:var(--accent)}
+.tag--amber{background:var(--amber-dim);color:var(--amber)}
+
+/* ---------- Cards ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow-sm)}
+.card--elev{background:var(--surface);box-shadow:var(--shadow)}
+.grid{display:grid;gap:18px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.auto{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+
+/* ---------- Hero ---------- */
+.hero{padding:74px 0 40px;position:relative}
+.hero__eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.hero__eyebrow::before{content:'';width:26px;height:2px;background:var(--accent);border-radius:2px}
+.hero h1{font-size:clamp(38px,6.4vw,74px);font-weight:800;letter-spacing:-0.03em;max-width:16ch}
+.hero h1 .ember{color:var(--accent)}
+.hero__lead{font-size:clamp(17px,1.5vw,20px);color:var(--text-dim);max-width:62ch;margin:20px 0 30px}
+.hero__slogan{font-family:var(--font-display);font-weight:800;font-size:clamp(19px,2.2vw,26px);letter-spacing:-0.02em;color:var(--text-bright);margin:20px 0 0}
+.hero__slogan .ygt{color:var(--accent)}
+.hero__src{font-size:14px;color:var(--text-dim);margin:-10px 0 30px;max-width:72ch;padding-left:16px;border-left:2px solid var(--accent-2)}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero__stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-top:44px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.stat__v{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--accent);line-height:1}
+.stat__l{font-family:var(--font-mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-dim);margin-top:7px}
+
+/* ---------- Notice ---------- */
+.notice{display:flex;gap:12px;align-items:flex-start;padding:15px 18px;border-radius:var(--radius-sm);
+  background:var(--amber-dim);border:1px solid color-mix(in srgb, var(--amber) 30%, transparent);font-size:13.5px;color:var(--text);margin-top:26px}
+.notice svg{flex-shrink:0;margin-top:2px;color:var(--amber)}
+
+/* ---------- Level selector ---------- */
+.levelbar{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:6px 0 22px}
+.levelbar__hint{font-size:14px;color:var(--text-dim);flex:1;min-width:220px}
+
+/* ---------- Plan cards ---------- */
+.plan{
+  border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+  box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:14px;transition:box-shadow .2s ease;
+}
+.plan[open]{box-shadow:var(--shadow)}
+.plan>summary{
+  list-style:none;cursor:pointer;padding:18px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  transition:background .15s ease;
+}
+.plan>summary::-webkit-details-marker{display:none}
+.plan>summary:hover{background:var(--surface-2)}
+.plan__chev{width:26px;height:26px;flex-shrink:0;border-radius:8px;background:var(--accent-dim);color:var(--accent);
+  display:grid;place-items:center;transition:transform .2s ease}
+.plan[open] .plan__chev{transform:rotate(90deg)}
+.plan__dist{font-family:var(--font-display);font-weight:800;font-size:20px;min-width:96px}
+.plan__meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-left:auto}
+.plan__facts{display:flex;gap:22px;flex-wrap:wrap;padding:4px 22px 18px;border-bottom:1px solid var(--border);margin-bottom:2px}
+.fact{display:flex;flex-direction:column;gap:2px}
+.fact__v{font-family:var(--font-mono);font-size:16px;font-weight:600;color:var(--text-bright)}
+.fact__l{font-family:var(--font-mono);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim)}
+.plan__body{padding:6px 12px 16px}
+
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm)}
+table.data{width:100%;border-collapse:collapse;font-size:12.5px;min-width:900px}
+table.data thead{position:sticky;top:0;z-index:2}
+table.data th{
+  background:var(--surface-2);font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1px;color:var(--text-dim);text-align:left;padding:9px 11px;border-bottom:2px solid var(--border-bright);
+  white-space:nowrap;
+}
+table.data td{padding:9px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+table.data tbody tr:nth-child(even){background:var(--surface-2)}
+table.data tbody tr:hover{background:var(--accent-dim)}
+table.data tbody tr:last-child td{border-bottom:none}
+td.wk{font-family:var(--font-mono);font-weight:600;color:var(--text-bright)}
+td.total{font-family:var(--font-mono);font-weight:600;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.focus{min-width:190px;max-width:260px;color:var(--text-dim);font-size:11.5px}
+.pill{font-size:9.5px;font-weight:700;font-family:var(--font-mono);letter-spacing:.6px;text-transform:uppercase;
+  padding:3px 7px;border-radius:5px;white-space:nowrap}
+.pill--base{background:var(--accent-2-dim);color:var(--accent-2)}
+.pill--build{background:var(--accent-dim);color:var(--accent)}
+.pill--peak{background:var(--red-dim);color:var(--red)}
+.pill--taper{background:var(--amber-dim);color:var(--amber)}
+.pill--race{background:var(--green-dim);color:var(--green)}
+.pill--gpp{background:var(--accent-2-dim);color:var(--accent-2)}
+.pill--spp{background:var(--accent-dim);color:var(--accent)}
+.pill--comp{background:var(--red-dim);color:var(--red)}
+.pill--speak{background:var(--green-dim);color:var(--green)}
+.load{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.load--high{background:var(--red-dim);color:var(--red)}
+.load--med{background:var(--amber-dim);color:var(--amber)}
+.load--low{background:var(--green-dim);color:var(--green)}
+.s-rest{color:var(--text-dim);opacity:.72}
+.s-easy{color:var(--accent-2)}
+.s-quality{color:var(--accent);font-weight:600}
+.s-tempo{color:var(--accent);font-weight:600}
+.s-long{color:var(--red);font-weight:600}
+.s-cross{color:var(--amber)}
+.s-race{color:var(--green);font-weight:700}
+
+/* ---------- Pre/Post content ---------- */
+.phase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow-sm);
+  border-top:3px solid var(--accent)}
+.phase-card--teal{border-top-color:var(--accent-2)}
+.phase-card h3{font-size:17px;margin-bottom:4px}
+.phase-card .when{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.phase-card--teal .when{color:var(--accent-2)}
+.phase-card ul{margin:0;padding-left:0;list-style:none}
+.phase-card li{padding-left:18px;position:relative;margin-bottom:8px;font-size:13.5px;color:var(--text)}
+.phase-card li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+.phase-card--teal li::before{color:var(--accent-2)}
+.phase-card li strong{color:var(--text-bright)}
+
+.callout{padding:15px 18px;border-radius:var(--radius-sm);border-left:4px solid var(--amber);
+  background:var(--amber-dim);margin:18px 0;font-size:13.5px}
+.callout strong{color:var(--amber)}
+.callout--red{border-left-color:var(--red);background:var(--red-dim)}
+.callout--red strong{color:var(--red)}
+.checklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:14px 0}
+.checklist label{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;padding:9px 12px;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer}
+.checklist input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex-shrink:0}
+.checklist input:checked+span{text-decoration:line-through;color:var(--text-dim)}
+
+/* ---------- Community ---------- */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--text-dim);font-weight:600}
+.field input,.field select,.field textarea{
+  font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--surface-2);
+  border:1px solid var(--border-bright);border-radius:var(--radius-sm);padding:11px 13px;width:100%;
+}
+.field textarea{resize:vertical;min-height:96px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.field--full{grid-column:1/-1}
+.moods{display:flex;gap:7px;flex-wrap:wrap}
+.mood-btn{font-size:13px;padding:8px 13px;border-radius:20px;border:1px solid var(--border-bright);background:var(--surface-2);
+  color:var(--text-dim);cursor:pointer;transition:all .15s ease}
+.mood-btn:hover{border-color:var(--accent)}
+.mood-btn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:26px 0 16px;align-items:center}
+.chip{font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--border-bright);
+  background:var(--surface);color:var(--text-dim);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent-2);color:#fff;border-color:var(--accent-2)}
+.feed{display:grid;gap:12px}
+.post{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm);position:relative}
+.post__top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.post__avatar{width:32px;height:32px;border-radius:50%;background:var(--accent-dim);color:var(--accent);
+  display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:14px;flex-shrink:0}
+.post__name{font-weight:700;font-size:14.5px;color:var(--text-bright)}
+.post__time{font-family:var(--font-mono);font-size:10.5px;color:var(--text-dim);margin-left:auto}
+.post__body{font-size:14px;white-space:pre-wrap}
+.post__meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px;align-items:center}
+.post__del{margin-left:auto}
+.empty{text-align:center;color:var(--text-dim);padding:30px;font-size:14px}
+
+/* ---------- Tools ---------- */
+.tool-out{font-family:var(--font-mono);background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:16px;margin-top:14px}
+.big-pace{display:flex;gap:26px;flex-wrap:wrap}
+.big-pace div{display:flex;flex-direction:column;gap:2px}
+.big-pace .v{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--accent)}
+.big-pace .l{font-family:var(--font-mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim)}
+.splits{max-height:230px;overflow:auto;margin-top:14px;font-size:12.5px}
+.splits div{display:flex;justify-content:space-between;padding:5px 2px;border-bottom:1px dashed var(--border)}
+.log-list{margin-top:14px;display:grid;gap:8px}
+.log-item{display:flex;gap:12px;align-items:center;font-size:13.5px;padding:9px 12px;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:var(--radius-sm)}
+.log-item .d{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);min-width:88px}
+.log-item .k{font-family:var(--font-mono);font-weight:600;color:var(--accent)}
+.bars{display:flex;align-items:flex-end;gap:5px;height:80px;margin-top:14px;padding-bottom:2px}
+.bars .bar{flex:1;background:linear-gradient(to top, var(--accent), var(--accent-soft));border-radius:4px 4px 0 0;min-height:3px;position:relative}
+.bars .bar span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-family:var(--font-mono);font-size:8.5px;color:var(--text-dim)}
+
+/* ---------- Social sharing ---------- */
+.share-toggle{
+  font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--accent);background:transparent;
+  border:1px solid var(--border-bright);border-radius:8px;padding:6px 13px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:all .15s ease;line-height:1;
+}
+.share-toggle::before{content:'';width:12px;height:12px;background:currentColor;flex-shrink:0;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 16.1c-.8 0-1.5.3-2 .8l-7-4c0-.2 0-.3 0-.5s0-.3 0-.5l7-4c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .3 0 .5l-7 4a3 3 0 1 0 0 5l7 4c0 .2 0 .3 0 .5a3 3 0 1 0 3-3z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 16.1c-.8 0-1.5.3-2 .8l-7-4c0-.2 0-.3 0-.5s0-.3 0-.5l7-4c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .3 0 .5l-7 4a3 3 0 1 0 0 5l7 4c0 .2 0 .3 0 .5a3 3 0 1 0 3-3z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.share-toggle:hover{border-color:var(--accent);background:var(--accent-dim)}
+.share-toggle[aria-expanded="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.share-panel{margin-top:12px;padding:13px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.share-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+.share-row{display:flex;gap:8px;flex-wrap:wrap}
+.share-btn{
+  font-family:var(--font-body);font-size:12.5px;font-weight:600;text-decoration:none;color:var(--text);
+  background:var(--surface);border:1px solid var(--border-bright);border-radius:8px;padding:7px 13px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s ease;line-height:1;
+}
+.share-btn::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--text-dim);flex-shrink:0}
+.share-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.share-btn--wa::before{background:#25d366}
+.share-btn--x::before{background:#14171a}
+[data-theme="dark"] .share-btn--x::before{background:#e8e8e8}
+.share-btn--fb::before{background:#1877f2}
+.share-btn--li::before{background:#0a66c2}
+.share-btn--tg::before{background:#229ed9}
+.share-btn--em::before{background:var(--amber)}
+.share-copy::before{background:var(--accent-2)}
+.share-native::before{background:var(--accent)}
+.plan__share{margin-top:16px;padding-top:15px;border-top:1px solid var(--border)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);
+  background:var(--text-bright);color:var(--bg);padding:11px 20px;border-radius:10px;font-size:13.5px;
+  font-weight:600;opacity:0;pointer-events:none;transition:all .25s ease;z-index:300;box-shadow:var(--shadow-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- Strava card ---------- */
+.strava-card{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:3px solid #fc4c02;border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow-sm);margin-top:26px}
+.strava-card__mark{width:46px;height:46px;border-radius:13px;background:#fc4c02;display:grid;place-items:center;flex-shrink:0}
+.strava-card__mark svg{width:26px;height:26px;fill:#fff}
+.strava-card__body{flex:1;min-width:230px}
+.strava-card__body h3{font-size:17px;margin-bottom:5px}
+.strava-card__body p{margin:0;font-size:13.5px;color:var(--text-dim)}
+.strava-card__btn{margin-left:auto;flex-shrink:0}
+@media (max-width:620px){.strava-card__btn{margin-left:0;width:100%;justify-content:center}}
+
+/* ---------- Race timeline ---------- */
+.race-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:30px}
+.race-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-sm)}
+.race-stat__v{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--accent);display:block;line-height:1.1}
+.race-stat__l{font-family:var(--font-mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim)}
+.race-timeline{position:relative}
+.race-timeline::before{content:'';position:absolute;left:9px;top:14px;bottom:14px;width:2px;background:var(--border-bright)}
+.race-year{position:relative;padding:26px 0 12px 38px;font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--accent)}
+.race-year:first-child{padding-top:4px}
+.race-year::before{content:'';position:absolute;left:0;top:28px;width:20px;height:20px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+.race-year:first-child::before{top:6px}
+.race-item{position:relative;padding:0 0 12px 38px}
+.race-item::before{content:'';position:absolute;left:3px;top:10px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.race-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;transition:box-shadow .2s ease,transform .15s ease}
+.race-card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.race-main{flex:1;min-width:180px}
+.race-name{font-weight:700;font-size:14.5px;color:var(--text-bright)}
+.race-meta{font-size:12.5px;color:var(--text-dim);margin-top:3px}
+.race-right{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.race-dist{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.3px;padding:2px 8px;border-radius:5px;background:var(--accent-2-dim);color:var(--accent-2);text-align:right}
+.race-time{font-family:var(--font-mono);font-size:13.5px;font-weight:600;color:var(--accent);white-space:nowrap}
+@media (max-width:620px){
+  .race-right{margin-left:0;text-align:left;align-items:flex-start}
+  .race-dist{text-align:left}
+}
+
+/* ---------- Daily routine ---------- */
+.lang-en .mr{display:none}
+.lang-mr .en{display:none}
+.langbar{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:11px;margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.langbar button{font-family:var(--font-body);font-size:13.5px;font-weight:600;color:var(--text-dim);background:transparent;border:none;border-radius:8px;padding:7px 16px;cursor:pointer;transition:all .15s ease}
+.langbar button:hover{color:var(--text)}
+.langbar button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.routine{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(322px,1fr))}
+.rt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);border-left:3px solid var(--accent)}
+.rt-card--teal{border-left-color:var(--accent-2)}
+.rt-time{font-family:var(--font-display);font-weight:700;font-size:16px;margin-bottom:11px;display:flex;align-items:flex-start;gap:9px;color:var(--text-bright)}
+.rt-time::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+.rt-card--teal .rt-time::before{background:var(--accent-2)}
+.rt-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.rt-list li{padding-left:18px;position:relative;font-size:13.5px;line-height:1.5}
+.rt-list li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+.rt-card--teal .rt-list li::before{color:var(--accent-2)}
+
+/* ---------- Founder's plan ---------- */
+.story{display:flex;gap:16px;align-items:flex-start}
+.story__avatar{width:54px;height:54px;border-radius:15px;flex-shrink:0;display:grid;place-items:center;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:800;font-size:20px}
+.story p{font-size:14.5px;margin:0 0 12px}
+.story p:last-of-type{margin-bottom:0}
+.sign{margin-top:16px;font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim)}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{position:relative;padding:0 0 18px 26px;border-left:2px solid var(--border);margin-left:6px}
+.timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+.timeline li::before{content:'';position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+.timeline .t-year{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.timeline .t-text{font-size:13.5px;color:var(--text)}
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px}
+.day{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px}
+.day__name{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+.day__sess{font-size:13px;line-height:1.45}
+.sub-h{font-size:20px;margin:36px 0 6px}
+.sub-note{font-size:13.5px;color:var(--text-dim);margin:0 0 16px;max-width:75ch}
+
+/* ---------- Research sources ---------- */
+.src-group{margin-bottom:26px}
+.src-group h3{font-size:16.5px;margin-bottom:13px;display:flex;align-items:center;gap:10px}
+.src-group h3::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px}
+.src{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:7px;transition:transform .15s ease,box-shadow .2s ease}
+.src:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.src__name{font-family:var(--font-display);font-weight:700;font-size:15.5px;color:var(--text-bright)}
+.src__desc{font-size:13px;color:var(--text-dim);flex:1}
+.src__link{font-family:var(--font-mono);font-size:11.5px;word-break:break-word}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--border);padding:34px 0 50px;margin-top:30px}
+.foot{display:flex;gap:22px;justify-content:space-between;flex-wrap:wrap;align-items:flex-start}
+.foot__brand{display:flex;gap:11px;align-items:center}
+.foot .foot__slogan{font-family:var(--font-display);font-weight:800;font-size:15.5px;color:var(--accent);margin:13px 0 0;max-width:none;letter-spacing:-0.01em}
+.foot p{font-size:12.5px;color:var(--text-dim);max-width:52ch;margin:0}
+.foot__links{display:flex;gap:18px;flex-wrap:wrap}
+.foot__links a{font-size:13px;color:var(--text-dim);text-decoration:none}
+.foot__links a:hover{color:var(--accent)}
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.anim{animation:fadeUp .45s ease-out both}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .plan__meta{margin-left:0;width:100%}
+}
+@media (max-width:620px){
+  .wrap,.topbar__inner{padding:0 16px}
+  section{padding:44px 0}
+  .brand__tag{display:none}
+  .hero{padding:52px 0 30px}
+  .card{padding:18px}
+  .plan>summary{padding:15px 16px}
+  .plan__facts{padding:4px 16px 16px;gap:16px}
+  .plan__dist{min-width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= NAV ======================= -->
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="#home" aria-label="Dhavakveer home">
+      <svg class="brand__mark" viewBox="0 0 48 48" role="img" aria-label="Dhavakveer logo">
+        <rect x="1" y="1" width="46" height="46" rx="14" fill="var(--accent)"/>
+        <path d="M20 13 L33 24 L20 35" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10.5 19 H16.5" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+        <path d="M9 27 H14" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">Dhavak<em>veer</em></span>
+        <span class="brand__tag">Run &middot; Believe &middot; Achieve</span>
+      </span>
+    </a>
+    <nav class="navlinks" id="nav" aria-label="Sections">
+      <a href="#founder">Founder</a>
+      <a href="#races">Races</a>
+      <a href="#routine">Routine</a>
+      <a href="#plans">Plans</a>
+      <a href="#sprints">Sprints</a>
+      <a href="#pre">Pre-Marathon</a>
+      <a href="#post">Post-Marathon</a>
+      <a href="#community">Community</a>
+      <a href="#tools">Tools</a>
+      <a href="#research">Sources</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle light and dark theme">
+      <svg class="i-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
+      <svg class="i-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero__eyebrow anim">Dhavakveer Training Hub</div>
+    <h1 class="anim" style="animation-delay:.05s">Train like a <span class="ember">dhavak</span>,<br>race like a warrior.</h1>
+    <p class="hero__slogan anim" style="animation-delay:.08s">Run. Believe. Achieve. <span class="ygt">You Got This.</span></p>
+    <p class="hero__lead anim" style="animation-delay:.1s">
+      Structured, progressive training plans for every distance — 5K to 100K ultra, and track
+      sprints from 60m to 400m — built for beginners, intermediate and advanced runners. Plus
+      pre-race preparation, post-race recovery, a pace calculator, a training log, and a place
+      to share how it's really going.
+    </p>
+    <p class="hero__src anim" style="animation-delay:.13s">Every plan here comes from my own experience on the road and trail, combined with online research.</p>
+    <div class="hero__cta anim" style="animation-delay:.15s">
+      <a class="btn btn--primary" href="#plans">Find your plan
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="#community">Share your journey</a>
+    </div>
+
+    <div class="hero__stats anim" style="animation-delay:.2s">
+      <div class="stat"><div class="stat__v">10</div><div class="stat__l">Events</div></div>
+      <div class="stat"><div class="stat__v">3</div><div class="stat__l">Levels</div></div>
+      <div class="stat"><div class="stat__v">30</div><div class="stat__l">Full plans</div></div>
+      <div class="stat"><div class="stat__v">60m&ndash;100K</div><div class="stat__l">Track to ultra</div></div>
+    </div>
+
+    <div class="notice anim" style="animation-delay:.25s">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      <span><strong>Please read:</strong> Dhavakveer offers general training guidance, not medical or professional coaching advice. Consult a doctor before starting any new programme, especially if you have a health condition, are pregnant, or are returning from injury.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOUNDER'S PLAN ======================= -->
+<section id="founder" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">Founder</span><h2>From 10K to 100K — the plan that worked for me</h2></div>
+    <p class="sec-sub">I used to practise Karate in my childhood, but after a gap of many years I started again from scratch — with beginner workouts and running. I began with a single 10K. Three years later I completed a 111&nbsp;km stadium run, a 100&nbsp;km trail through the forests and hills of Mahabaleshwar, and I've run 50K many times over. What changed wasn't talent — it was a patient, repeatable system that built my endurance and my strength. This is it.</p>
+
+    <div class="card card--elev" style="max-width:880px">
+      <div class="story">
+        <span class="story__avatar" aria-hidden="true">DV</span>
+        <div>
+          <p>My first 10K felt like the edge of what I could do. So I stopped chasing speed and started chasing distance instead — slowly, one long run at a time, week after week for three years.</p>
+          <p>Along the way I ran a 111&nbsp;km stadium run, a 100&nbsp;km trail through the forests and hills of Mahabaleshwar, and 50K more times than I can count. Nothing about it was clever. I ran a lot of easy kilometres, I ran hills and trails, I lifted weights twice a week, and I never stopped showing up.</p>
+          <p>The plans on this page grew out of that journey. It built my endurance and my strength — and it can build yours.</p>
+        </div>
+      </div>
+      <div class="sign">— Founder, Dhavakveer</div>
+    </div>
+
+    <h3 class="sub-h">What built my endurance and strength</h3>
+    <p class="sub-note">Six things did almost all of the work. None of them are complicated — the hard part is doing them for years.</p>
+    <div class="grid g3">
+      <div class="phase-card"><h3>Volume before speed</h3><div class="when">The base</div><ul><li>Most of my running was <strong>easy and conversational</strong>. Distance came from many gentle kilometres, not many hard ones.</li></ul></div>
+      <div class="phase-card"><h3>The long run is king</h3><div class="when">Every week</div><ul><li>One <strong>long, slow run</strong> a week. That single session built the endurance everything else stood on.</li></ul></div>
+      <div class="phase-card"><h3>Hills &amp; trails</h3><div class="when">Strength</div><ul><li>The climbs of Mahabaleshwar did more for my legs than any machine. <strong>Hills and uneven trail</strong> built strength and resilience.</li></ul></div>
+      <div class="phase-card"><h3>Back-to-back long runs</h3><div class="when">Ultra prep</div><ul><li>Long on Saturday, long again on Sunday. It taught my body to keep going on <strong>tired legs</strong> — exactly what 50K and 100K demand.</li></ul></div>
+      <div class="phase-card"><h3>Strength training</h3><div class="when">Twice a week</div><ul><li>Short gym / bodyweight sessions — squats, single-leg work, core — kept me <strong>injury-free</strong> through huge mileage.</li></ul></div>
+      <div class="phase-card"><h3>Consistency over intensity</h3><div class="when">The secret</div><ul><li>I built over <strong>years, not weeks</strong>. Showing up week after week is the whole trick.</li></ul></div>
+    </div>
+
+    <h3 class="sub-h">The three-year build</h3>
+    <p class="sub-note">How the distances grew — gradually, with each year resting on the one before it.</p>
+    <div class="table-scroll"><table class="data" style="min-width:720px">
+      <thead><tr><th>Year</th><th>Focus</th><th>Longest run</th><th>Peak weekly volume</th><th>Milestones</th></tr></thead>
+      <tbody>
+        <tr><td class="wk">Year 1</td><td>Build the base</td><td>~25 km</td><td class="total">40–60 km</td><td class="focus">First 10K → Half → first Marathon</td></tr>
+        <tr><td class="wk">Year 2</td><td>Endurance &amp; strength</td><td>35–40 km</td><td class="total">60–90 km</td><td class="focus">50K, run several times</td></tr>
+        <tr><td class="wk">Year 3</td><td>Ultra &amp; trail</td><td>50 km+ with back-to-backs</td><td class="total">90–130 km</td><td class="focus">111 km stadium run · 100 km Mahabaleshwar trail</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sub-h">A typical week in my build</h3>
+    <p class="sub-note">My standard rhythm in a peak block. On easier weeks I cut the volume, never the habit.</p>
+    <div class="week-grid">
+      <div class="day"><span class="day__name">Mon</span><span class="day__sess">Rest, or easy 6–8 km recovery</span></div>
+      <div class="day"><span class="day__name">Tue</span><span class="day__sess">Easy 10–12 km + core</span></div>
+      <div class="day"><span class="day__name">Wed</span><span class="day__sess">Hill repeats or tempo, 12–14 km</span></div>
+      <div class="day"><span class="day__name">Thu</span><span class="day__sess">Easy 10–12 km + gym (squats, single-leg)</span></div>
+      <div class="day"><span class="day__name">Fri</span><span class="day__sess">Rest or easy 8 km</span></div>
+      <div class="day"><span class="day__name">Sat</span><span class="day__sess">Long run 25–40 km (road or trail)</span></div>
+      <div class="day"><span class="day__name">Sun</span><span class="day__sess">Back-to-back long 15–25 km on trail / hills</span></div>
+    </div>
+
+    <h3 class="sub-h">My signature sessions</h3>
+    <p class="sub-note">The handful of workouts that mattered most when the distances got serious.</p>
+    <div class="grid g2">
+      <div class="phase-card phase-card--teal"><h3>The stadium long run</h3><div class="when">2–4 hours</div><ul><li>Hours of laps on a flat track. No scenery, no shortcuts — <strong>pure mental toughness</strong> and steady endurance. This is what carried me through the 111 km stadium run.</li></ul></div>
+      <div class="phase-card phase-card--teal"><h3>The Mahabaleshwar trail long run</h3><div class="when">4–6 hours</div><ul><li>Forest and hills: <strong>walk the steep climbs</strong>, run the flats and descents, eat and drink on the move. Time on feet for the 100 km.</li></ul></div>
+      <div class="phase-card phase-card--teal"><h3>The back-to-back weekend</h3><div class="when">Sat + Sun</div><ul><li>A long Saturday followed by a long Sunday. The <strong>single best way</strong> I found to prepare the body for ultra distance.</li></ul></div>
+      <div class="phase-card phase-card--teal"><h3>The easy base run</h3><div class="when">60–90 min</div><ul><li>A pace where I could hold a <strong>conversation</strong> the whole way. Most of my kilometres lived here — and the reason I never burned out.</li></ul></div>
+    </div>
+
+    <div class="callout">
+      <strong>My journey, not a prescription.</strong> This is the approach that worked for me, shared so you can learn from it — not a plan to copy blindly. Distances like these take years and should be built gradually. Consult a doctor or a qualified coach before starting, especially before ultra distances.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= RACE TIMELINE ======================= -->
+<section id="races">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">Races</span><h2>My race history — 2016 to 2024</h2></div>
+    <p class="sec-sub">Every start line, road and trail. These are the races behind the plans — from a first 10K to 24-hour stadium runs and Himalayan ultras.</p>
+    <div class="race-stats" id="raceStats"></div>
+    <div class="race-timeline" id="raceTimeline"></div>
+  </div>
+</section>
+
+<!-- ======================= DAILY ROUTINE ======================= -->
+<section id="routine" class="lang-en">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">Routine</span><h2>My daily routine — train, eat, recover</h2></div>
+    <p class="sec-sub">Another plan from my own training years: a full day built around one 10&nbsp;km run. No fancy equipment, no complicated schedule — just simple habits repeated every single day. This is where the endurance and the strength were built.</p>
+
+    <div class="langbar" id="langBar" role="group" aria-label="Choose language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+    </div>
+
+    <div class="routine">
+      <div class="rt-card">
+        <div class="rt-time"><span class="en">Early morning — empty stomach</span><span class="mr">सकाळी — रिकाम्या पोटी</span></div>
+        <ul class="rt-list">
+          <li><span class="en">Drink warm water.</span><span class="mr">कोमट पाणी प्या.</span></li>
+          <li><span class="en">Eat dry fruits — khajur (dates), kaju (cashew), badam (almond) and akrod (walnut).</span><span class="mr">खजूर, काजू, बदाम आणि अक्रोड खा.</span></li>
+        </ul>
+      </div>
+
+      <div class="rt-card rt-card--teal">
+        <div class="rt-time"><span class="en">Morning workout — stretching &amp; warm-up</span><span class="mr">सकाळचा व्यायाम — स्ट्रेचिंग व वॉर्म-अप</span></div>
+        <ul class="rt-list">
+          <li><span class="en">Start with 10–15 Surya Namaskar.</span><span class="mr">10–15 सूर्यनमस्कारांनी सुरुवात करा.</span></li>
+          <li><span class="en">Then 10–15 min of yoga or stretching.</span><span class="mr">नंतर 10–15 मिनिटे योग किंवा स्ट्रेचिंग.</span></li>
+          <li><span class="en">10 min of warm-up exercises (jumping, burpees, etc.).</span><span class="mr">10 मिनिटे वॉर्म-अप व्यायाम (जंपिंग, बर्पी इ.).</span></li>
+          <li><span class="en">30–50 push-ups — start with 10 reps × 3–5 sets.</span><span class="mr">30–50 पुशअप्स — 10 reps × 3–5 सेटपासून सुरुवात.</span></li>
+          <li><span class="en">30–50 squats — 10 reps × 3–5 sets.</span><span class="mr">30–50 स्क्वॉट्स — 10 reps × 3–5 सेट.</span></li>
+          <li><span class="en">10 min break — eat a banana, chikki or peanuts.</span><span class="mr">10 मिनिटे विश्रांती — केळं, चिक्की किंवा शेंगदाणे खा.</span></li>
+        </ul>
+      </div>
+
+      <div class="rt-card">
+        <div class="rt-time"><span class="en">The run &amp; after</span><span class="mr">धावणे व धावल्यानंतर</span></div>
+        <ul class="rt-list">
+          <li><span class="en">10 km running.</span><span class="mr">10 किमी धावणे.</span></li>
+          <li><span class="en">After the run, stretch your muscles.</span><span class="mr">धावल्यानंतर स्नायू स्ट्रेचिंग करा.</span></li>
+          <li><span class="en">Eat oats with milk — add banana, dry fruits and honey if you can.</span><span class="mr">ओट्स व दूध घ्या — जमल्यास केळं, सुका मेवा व मध घाला.</span></li>
+        </ul>
+      </div>
+
+      <div class="rt-card rt-card--teal">
+        <div class="rt-time"><span class="en">Afternoon — lunch &amp; hydration</span><span class="mr">दुपार — जेवण व हायड्रेशन</span></div>
+        <ul class="rt-list">
+          <li><span class="en">Lunch: dal, rice and curd (or buttermilk). Avoid very spicy or oily food.</span><span class="mr">दुपारचं जेवण: डाळ-भात, दही किंवा ताक. जास्त मसालेदार व तेलकट खाणं टाळा.</span></li>
+          <li><span class="en">An hour later, eat a fruit (orange, apple, papaya or sitaphal — optional).</span><span class="mr">1 तासानंतर फळ घ्या (संत्रं, सेब, पपई किंवा सीताफळ — ऐच्छिक).</span></li>
+          <li><span class="en">Drink water and electrolytes for hydration throughout the day.</span><span class="mr">दिवसभर हायड्रेशनसाठी पाणी व इलेक्ट्रोलाइट प्या.</span></li>
+        </ul>
+      </div>
+
+      <div class="rt-card">
+        <div class="rt-time"><span class="en">Evening snack</span><span class="mr">संध्याकाळचा नाश्ता</span></div>
+        <ul class="rt-list">
+          <li><span class="en">A healthy light snack — bhel or a fruit (optional).</span><span class="mr">हलका निरोगी नाश्ता — भेळ किंवा एखादं फळ (ऐच्छिक).</span></li>
+        </ul>
+      </div>
+
+      <div class="rt-card rt-card--teal">
+        <div class="rt-time"><span class="en">Night — dinner &amp; wind-down</span><span class="mr">रात्र — जेवण व विश्रांती</span></div>
+        <ul class="rt-list">
+          <li><span class="en">Dinner: keep it light, with salad — tomato and cucumber.</span><span class="mr">रात्रीचं जेवण: हलकं, सोबत टोमॅटो व काकडी.</span></li>
+          <li><span class="en">After food, walk for 10–15 minutes.</span><span class="mr">जेवणानंतर 10–15 मिनिटे चाला.</span></li>
+          <li><span class="en">Before sleep, drink warm water.</span><span class="mr">झोपण्यापूर्वी कोमट पाणी प्या.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="strava-card">
+      <span class="strava-card__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.7 2.5 2.6 16.4h4.4l2.7-5.5 2.7 5.5h4.4L9.7 2.5z"/><path d="M15.9 12.9l-2.2 4.5-2.2-4.5H8.1l5.6 11 5.6-11h-3.4z"/></svg>
+      </span>
+      <div class="strava-card__body">
+        <h3>How I actually train</h3>
+        <p>Every run, hike and long day out — the real sessions behind these plans — is logged on Strava. Follow along and see the training as it happens.</p>
+      </div>
+      <a class="btn btn--primary strava-card__btn" href="https://strava.app.link/jBTiccOW57b" target="_blank" rel="noopener noreferrer">View my Strava profile</a>
+    </div>
+
+    <div class="callout">
+      <strong>A template, not a prescription.</strong> This is my personal daily routine from my own training years, shared for learning. Nutrition and training needs vary from person to person — check with a doctor or dietitian before adopting it, especially if you have any health condition.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TRAINING PLANS ======================= -->
+<section id="plans">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Training plans by distance &amp; level</h2></div>
+    <p class="sec-sub">Pick your level, then open the plan for your race distance. Every plan is periodised — a base phase to build aerobic fitness, a build phase for speed and stamina, a peak block, and a proper taper into race day. Volumes are a guide: adjust to how you feel and never increase weekly mileage by more than about 10%.</p>
+
+    <div class="levelbar">
+      <div class="seg" id="levelSeg" role="group" aria-label="Choose your level"></div>
+      <div class="levelbar__hint" id="levelHint"></div>
+    </div>
+
+    <div id="plansOut"></div>
+  </div>
+</section>
+
+<!-- ======================= SPRINT TRAINING ======================= -->
+<section id="sprints" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Sprint training &amp; workout plans</h2></div>
+    <p class="sec-sub">Sprinting is a power sport, not a distance one — training is about <strong>quality over quantity</strong>: short maximal efforts with full recovery, plus strength and plyometric work. Choose your event and level. Sessions are written as sets × reps — always sprint at the prescribed intensity, and stop a set the moment your form breaks down.</p>
+
+    <div class="levelbar">
+      <div class="seg" id="sprintLevelSeg" role="group" aria-label="Choose your sprint level"></div>
+      <div class="levelbar__hint" id="sprintLevelHint"></div>
+    </div>
+
+    <div id="sprintOut"></div>
+
+    <div class="grid g2" style="margin-top:26px">
+      <div class="phase-card phase-card--teal">
+        <h3>Sprint training essentials</h3>
+        <div class="when">Every session</div>
+        <ul>
+          <li><strong>Warm up thoroughly</strong> — 15–20 min easy jog, drills and skips, then 3–4 progressive strides. Never sprint cold.</li>
+          <li><strong>Full recovery between reps</strong> — 3–8 min walking rest so every rep is truly maximal. If you're still breathing hard, you're not sprinting.</li>
+          <li><strong>Quality beats fatigue.</strong> Sprint work is not conditioning — end a set the moment speed drops or technique breaks down.</li>
+          <li><strong>High / low rhythm</strong> — separate hard speed days with easy tempo, mobility or rest so the nervous system recovers.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Before &amp; after a sprint session</h3>
+        <div class="when">Competition day</div>
+        <ul>
+          <li><strong>Pre-meet:</strong> arrive early, complete a full warm-up, rehearse your block start and check the track and spikes.</li>
+          <li><strong>Between rounds:</strong> stay warm in a tracksuit, sip fluids, and do a short re-warm-up before the next round.</li>
+          <li><strong>Post-session:</strong> cool down with an easy jog, stretch, refuel with protein and carbs, and prioritise sleep.</li>
+          <li><strong>Recovery:</strong> allow 48 hours between maximal speed sessions. Sore hamstrings or Achilles need rest — and if it persists, see a physio.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PRE-MARATHON ======================= -->
+<section id="pre" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Pre-marathon preparation</h2></div>
+    <p class="sec-sub">The work is done in training. Race week is about arriving at the start line fresh, fuelled and calm. Here's how to handle the final stretch — and it applies to every distance, scaled up or down.</p>
+
+    <div class="grid g3">
+      <div class="phase-card">
+        <h3>Taper &amp; the final 3 weeks</h3>
+        <div class="when">3 weeks to race day</div>
+        <ul>
+          <li><strong>Cut volume, keep sharpness.</strong> Reduce weekly mileage by ~20–25% each week; keep a few short bursts of race-pace work so your legs stay quick.</li>
+          <li><strong>Sleep is the taper.</strong> Aim for 7–9 hours. This is where adaptation actually happens.</li>
+          <li><strong>Don't cram.</strong> Missed sessions are gone — adding them now only risks fatigue or injury.</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <h3>Fuelling &amp; carb-loading</h3>
+        <div class="when">72 hours to race day</div>
+        <ul>
+          <li><strong>Carb-load 2–3 days out</strong> for half-marathon and longer: increase carbohydrate intake while trimming fibre and heavy fats.</li>
+          <li><strong>Practise your race fuel in training</strong> — gels, chews, or real food — never try anything new on race day.</li>
+          <li><strong>Hydrate steadily, don't over-drink.</strong> Pale-yellow urine is the target; sip electrolytes in heat.</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <h3>Hydration &amp; electrolytes</h3>
+        <div class="when">Race week</div>
+        <ul>
+          <li><strong>Sodium matters</strong> for long efforts and hot days — use a sports drink or electrolyte tabs, not plain water alone.</li>
+          <li><strong>Learn your sweat rate</strong> on long runs: weigh yourself before and after to estimate fluid loss per hour.</li>
+          <li><strong>Don't chug litres</strong> the morning of the race — you'll be queuing at the portaloos, not running.</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <h3>Day before</h3>
+        <div class="when">T-1 day</div>
+        <ul>
+          <li><strong>Short shakeout</strong> of 15–20 easy minutes with a few strides, then rest.</li>
+          <li><strong>Lay out everything:</strong> kit, shoes, bib, timing chip, gels, anti-chafe, spare layer, bag drop.</li>
+          <li><strong>Eat familiar food,</strong> early and not too heavy. Set two alarms. Sleep matters less than staying calm.</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <h3>Race morning</h3>
+        <div class="when">T-0 hours</div>
+        <ul>
+          <li><strong>Wake 3 hours before</strong> the gun; eat a familiar, carb-focused breakfast.</li>
+          <li><strong>Arrive early,</strong> use the loos, drop your bag, then warm up for 10–15 minutes with dynamic drills and strides.</li>
+          <li><strong>Start easy.</strong> The first kilometres should feel almost too slow — the real race starts halfway.</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <h3>Pacing &amp; the mind</h3>
+        <div class="when">On the day</div>
+        <ul>
+          <li><strong>Even splits beat heroic starts.</strong> Go out 5–10 seconds per km slower than goal pace.</li>
+          <li><strong>Break the race into segments</strong> — to the next aid station, the next kilometre — not the whole distance.</li>
+          <li><strong>Have a mantra and a plan B.</strong> If it goes wrong, slow down, fuel, and finish strong.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:36px 0 4px;font-size:20px">Race-week kit checklist</h3>
+    <p class="dim" style="margin:0 0 6px;font-size:14px">Tick things off as you pack — this list is saved in your browser.</p>
+    <div class="checklist" id="kitCheck"></div>
+  </div>
+</section>
+
+<!-- ======================= POST-MARATHON ======================= -->
+<section id="post">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Post-marathon recovery</h2></div>
+    <p class="sec-sub">Crossing the line is the halfway mark of the job. Recovery is training too — the reverse taper gets you back to running stronger, and skipping it is how niggles become injuries.</p>
+
+    <div class="grid g3">
+      <div class="phase-card phase-card--teal">
+        <h3>First 24–48 hours</h3>
+        <div class="when">Immediately after</div>
+        <ul>
+          <li><strong>Keep moving gently.</strong> A slow walk beats sitting still — it flushes the legs and helps you feel human.</li>
+          <li><strong>Refuel within an hour:</strong> carbs plus protein, and rehydrate with electrolytes.</li>
+          <li><strong>Compression and elevation</strong> can ease swelling. Skip the ice bath debate — do what feels good.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Week 1 — reverse taper</h3>
+        <div class="when">Days 2–7</div>
+        <ul>
+          <li><strong>No running for most people.</strong> Swap it for walking, easy cycling or swimming once soreness fades.</li>
+          <li><strong>Eat well and sleep lots.</strong> Your immune system dips after a big effort — look after yourself.</li>
+          <li><strong>Gentle mobility</strong> for calves, hips and quads, but don't force deep stretching into sore muscle.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Weeks 2–4 — return to running</h3>
+        <div class="when">Getting back</div>
+        <ul>
+          <li><strong>Start with easy, short runs</strong> — 20–30 minutes, every other day, only when you feel ready.</li>
+          <li><strong>Build slowly.</strong> Return to normal mileage over 3–6 weeks; longer for a marathon or ultra.</li>
+          <li><strong>Leave speed work out</strong> until you've had several pain-free, comfortable weeks.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Mobility &amp; strength</h3>
+        <div class="when">Ongoing</div>
+        <ul>
+          <li><strong>Rebuild the basics:</strong> calf raises, glute bridges, single-leg balance and hip work.</li>
+          <li><strong>Address what hurt.</strong> Post-race is the perfect time to fix the weakness behind a niggle.</li>
+          <li><strong>Foam-roll gently,</strong> never aggressively over tender spots.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Nutrition &amp; sleep</h3>
+        <div class="when">The repair crew</div>
+        <ul>
+          <li><strong>Protein at every meal</strong> to rebuild muscle; don't diet right after a big race.</li>
+          <li><strong>Iron and vitamin D</strong> matter for runners — get levels checked if you feel flat for weeks.</li>
+          <li><strong>Chase sleep.</strong> It's the single most powerful recovery tool you own.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-card--teal">
+        <h3>Red flags — see a professional</h3>
+        <div class="when">When to stop</div>
+        <ul>
+          <li><strong>Pain that worsens</strong> with running, or that persists beyond a couple of weeks.</li>
+          <li><strong>Sharp, localised or bone-deep pain</strong> — especially in the shin or foot — needs a physio or doctor.</li>
+          <li><strong>Chest pain, breathlessness, dizziness or a racing heart</strong> at rest: seek medical help immediately.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout--red">
+      <strong>Post-race blues are real.</strong> Many runners feel flat or low in the weeks after a big goal race. It's normal. Keep some gentle routine, set a new small goal, and talk to someone if it lingers — a doctor or a mental-health professional can help.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= COMMUNITY ======================= -->
+<section id="community" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>The Dhavakveer community</h2></div>
+    <p class="sec-sub">Share your workout plans, tell the story of a run, or just say how you feel today. Pick the plan it relates to and you can post it straight to social media with one tap. Everything is saved privately in your own browser — nothing is uploaded anywhere.</p>
+
+    <div class="grid g2" style="align-items:start">
+      <div class="card card--elev">
+        <h3 style="font-size:19px;margin-bottom:16px">Share something</h3>
+        <form id="postForm" class="form-grid">
+          <div class="field">
+            <label for="pName">Your name</label>
+            <input id="pName" name="name" maxlength="40" placeholder="e.g. Aarav" required>
+          </div>
+          <div class="field">
+            <label for="pType">What is this?</label>
+            <select id="pType" name="type">
+              <option value="plan">A workout plan</option>
+              <option value="experience">An experience / race story</option>
+              <option value="feeling">How I feel today</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pDist">Your plan — distance</label>
+            <select id="pDist" name="distance">
+              <option value="">Not specific</option>
+              <option>5K</option><option>10K</option><option>Half Marathon (21K)</option>
+              <option>Marathon (42K)</option><option>50K</option><option>Ultra (100K+)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pLevel">Your plan — level</label>
+            <select id="pLevel" name="level">
+              <option value="">Not specific</option>
+              <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label>How are you feeling?</label>
+            <div class="moods" id="moodRow" role="group" aria-label="Pick a mood">
+              <button type="button" class="mood-btn" data-mood="Motivated">Motivated</button>
+              <button type="button" class="mood-btn" data-mood="Strong">Strong</button>
+              <button type="button" class="mood-btn" data-mood="Tired">Tired</button>
+              <button type="button" class="mood-btn" data-mood="Sore">Sore</button>
+              <button type="button" class="mood-btn" data-mood="Nervous">Nervous</button>
+              <button type="button" class="mood-btn" data-mood="Pumped">Pumped</button>
+              <button type="button" class="mood-btn" data-mood="Need a boost">Need a boost</button>
+            </div>
+          </div>
+          <div class="field field--full">
+            <label for="pBody">Your message</label>
+            <textarea id="pBody" name="content" maxlength="1200" placeholder="Describe your plan, your run, or how you feel. What worked, what didn't, what you'd tell another runner?" required></textarea>
+          </div>
+          <div class="field--full" style="margin-top:-4px">
+            <span class="dim" style="font-size:12px">The distance and level you pick become your <strong>selected plan</strong> — they travel with your post when you share it.</span>
+          </div>
+          <div class="field--full" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn--primary" type="submit">Post to the feed</button>
+            <span class="dim" style="font-size:12.5px" id="formMsg" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <div class="filters" id="feedFilters" role="group" aria-label="Filter posts">
+          <span class="mono dim" style="font-size:11px;letter-spacing:1px;text-transform:uppercase">Show:</span>
+          <button class="chip" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" data-filter="plan" aria-pressed="false">Plans</button>
+          <button class="chip" data-filter="experience" aria-pressed="false">Experiences</button>
+          <button class="chip" data-filter="feeling" aria-pressed="false">Feelings</button>
+        </div>
+        <div class="feed" id="feed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TOOLS ======================= -->
+<section id="tools">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Runner's tools</h2></div>
+    <p class="sec-sub">A quick pace calculator to plan your splits, and a training log to keep yourself honest. Both save to your browser.</p>
+
+    <div class="grid g2" style="align-items:start">
+      <!-- Pace calculator -->
+      <div class="card card--elev">
+        <h3 style="font-size:19px;margin-bottom:4px">Pace calculator</h3>
+        <p class="dim" style="font-size:13.5px;margin:0 0 16px">Enter a distance and your target time to get your pace and per-kilometre splits.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="calcDist">Distance</label>
+            <select id="calcDist">
+              <option value="5">5K</option>
+              <option value="10">10K</option>
+              <option value="21.0975" selected>Half Marathon (21.1K)</option>
+              <option value="42.195">Marathon (42.2K)</option>
+              <option value="50">50K</option>
+              <option value="100">Ultra (100K)</option>
+              <option value="custom">Custom (km)</option>
+            </select>
+          </div>
+          <div class="field" id="customWrap" style="display:none">
+            <label for="calcCustom">Custom distance (km)</label>
+            <input id="calcCustom" type="number" min="0.5" step="0.1" value="15">
+          </div>
+          <div class="field">
+            <label for="calcH">Hours</label>
+            <input id="calcH" type="number" min="0" max="99" value="1">
+          </div>
+          <div class="field">
+            <label for="calcM">Minutes</label>
+            <input id="calcM" type="number" min="0" max="59" value="45">
+          </div>
+          <div class="field">
+            <label for="calcS">Seconds</label>
+            <input id="calcS" type="number" min="0" max="59" value="0">
+          </div>
+        </div>
+        <div class="tool-out" id="paceOut" aria-live="polite"></div>
+      </div>
+
+      <!-- Training log -->
+      <div class="card card--elev">
+        <h3 style="font-size:19px;margin-bottom:4px">Training log</h3>
+        <p class="dim" style="font-size:13.5px;margin:0 0 16px">Log your runs and watch your weekly volume build.</p>
+        <form id="logForm" class="form-grid">
+          <div class="field">
+            <label for="logDate">Date</label>
+            <input id="logDate" type="date" required>
+          </div>
+          <div class="field">
+            <label for="logKm">Distance (km)</label>
+            <input id="logKm" type="number" min="0.5" step="0.1" placeholder="e.g. 8" required>
+          </div>
+          <div class="field">
+            <label for="logType">Type</label>
+            <select id="logType">
+              <option>Easy run</option><option>Long run</option><option>Intervals</option>
+              <option>Tempo</option><option>Hills</option><option>Cross-train</option><option>Race</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="logFeel">How it felt</label>
+            <input id="logFeel" maxlength="60" placeholder="e.g. strong finish">
+          </div>
+          <div class="field--full">
+            <button class="btn btn--primary" type="submit">Add to log</button>
+          </div>
+        </form>
+        <div class="tool-out">
+          <div class="big-pace">
+            <div><span class="v" id="weekTotal">0</span><span class="l">km this week</span></div>
+            <div><span class="v" id="allTotal">0</span><span class="l">km logged</span></div>
+            <div><span class="v" id="runCount">0</span><span class="l">runs</span></div>
+          </div>
+          <div class="bars" id="logBars" aria-hidden="true"></div>
+        </div>
+        <div class="log-list" id="logList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= RESEARCH & SOURCES ======================= -->
+<section id="research" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Research &amp; sources</h2></div>
+    <p class="sec-sub">Everything on Dhavakveer comes from two places: my own experience on the road and trail — from 10K to 100K — and publicly available research into widely used coaching methodology such as periodised blocks, the 80/20 easy/hard split, progressive overload and event-specific work. Below are the established online platforms where you can read more and compare approaches.</p>
+
+    <div class="src-group">
+      <h3>Distance &amp; endurance running</h3>
+      <div class="src-grid">
+        <div class="src"><span class="src__name">Hal Higdon</span><span class="src__desc">Time-tested marathon, half-marathon and base-building plans from Novice to Advanced, with free schedules on the site.</span><a class="src__link" href="https://www.halhigdon.com/training/" target="_blank" rel="noopener noreferrer">halhigdon.com/training</a></div>
+        <div class="src"><span class="src__name">Jack Daniels' Running Formula</span><span class="src__desc">The VDOT system behind the easy / tempo / interval intensities used across these plans.</span><a class="src__link" href="https://www.runnersworld.com/advanced/a20825580/threshold-training-finding-your-vdot/" target="_blank" rel="noopener noreferrer">runnersworld.com — VDOT guide</a></div>
+        <div class="src"><span class="src__name">Runner's World</span><span class="src__desc">Training plans, pace guides and coaching articles for every distance.</span><a class="src__link" href="https://www.runnersworld.com/" target="_blank" rel="noopener noreferrer">runnersworld.com</a></div>
+        <div class="src"><span class="src__name">Nike Run Club</span><span class="src__desc">Free guided 5K to marathon training plans built around speed, recovery and long runs.</span><a class="src__link" href="https://www.nike.com/running/training-plans" target="_blank" rel="noopener noreferrer">nike.com/running/training-plans</a></div>
+        <div class="src"><span class="src__name">McMillan Running</span><span class="src__desc">Training plans plus a widely used running pace calculator.</span><a class="src__link" href="https://www.mcmillanrunning.com/training-plans/" target="_blank" rel="noopener noreferrer">mcmillanrunning.com</a></div>
+        <div class="src"><span class="src__name">RunnersConnect</span><span class="src__desc">Custom plans with built-in strength and injury-prevention guidance.</span><a class="src__link" href="https://runnersconnect.net/training-plans/" target="_blank" rel="noopener noreferrer">runnersconnect.net</a></div>
+        <div class="src"><span class="src__name">TrainingPeaks</span><span class="src__desc">Structured training plans and the platform many coaches deliver them on.</span><a class="src__link" href="https://www.trainingpeaks.com/" target="_blank" rel="noopener noreferrer">trainingpeaks.com</a></div>
+      </div>
+    </div>
+
+    <div class="src-group">
+      <h3>Sprint &amp; track</h3>
+      <div class="src-grid">
+        <div class="src"><span class="src__name">USA Track &amp; Field (USATF)</span><span class="src__desc">Coach education and resources for sprints, hurdles and speed development.</span><a class="src__link" href="https://usatf.org/programs/coaches" target="_blank" rel="noopener noreferrer">usatf.org/programs/coaches</a></div>
+        <div class="src"><span class="src__name">England Athletics</span><span class="src__desc">Sprints &amp; hurdles coaching syllabus covering training methods and progressions.</span><a class="src__link" href="https://www.englandathletics.org/coaches-and-officials/coaching-qualifications/event-group-sprint-and-hurdles/" target="_blank" rel="noopener noreferrer">englandathletics.org</a></div>
+        <div class="src"><span class="src__name">Scottish Athletics</span><span class="src__desc">National coaching syllabus with dedicated sprints and hurdles resources.</span><a class="src__link" href="https://www.scottishathletics.org.uk/coaches/coach-cpd/coaching-resources/coaching-syllabus-resources/" target="_blank" rel="noopener noreferrer">scottishathletics.org.uk</a></div>
+        <div class="src"><span class="src__name">Athletics Ireland</span><span class="src__desc">AAi Coach sprints manual with drills, technique and session ideas.</span><a class="src__link" href="https://www.athleticsireland.ie/coaches-officials/aai-coach/" target="_blank" rel="noopener noreferrer">athleticsireland.ie</a></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Independent &amp; educational.</strong> Dhavakveer is a free, independent compilation for learning. It is not affiliated with, endorsed by, or copied from any of the organisations listed above, and these plans are general guidance rather than individualised coaching. If you have a coach, follow their programme.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="foot__brand">
+        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="1" y="1" width="46" height="46" rx="14" fill="var(--accent)"/>
+          <path d="M20 13 L33 24 L20 35" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.5 19 H16.5" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+          <path d="M9 27 H14" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <span class="brand__text"><span class="brand__name">Dhavak<em>veer</em></span><span class="brand__tag">Run &middot; Believe &middot; Achieve</span></span>
+      </div>
+      <p class="foot__slogan">Run. Believe. Achieve. You Got This.</p>
+      <p style="margin-top:14px">General training guidance for runners, built from my own running experience and publicly available research — see <a href="#research">Research &amp; sources</a>. Not medical advice. Consult a qualified professional before starting a new programme. Community posts and your log are stored only in your own browser.</p>
+    </div>
+    <div class="foot__links">
+      <a href="#founder">Founder</a>
+      <a href="#races">Races</a>
+      <a href="#routine">Routine</a>
+      <a href="#plans">Plans</a>
+      <a href="#sprints">Sprints</a>
+      <a href="#pre">Pre-Marathon</a>
+      <a href="#post">Post-Marathon</a>
+      <a href="#community">Community</a>
+      <a href="#tools">Tools</a>
+      <a href="#research">Sources</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   Dhavakveer — app logic (vanilla JS, no dependencies)
+   ========================================================= */
+(function(){
+'use strict';
+
+/* ---------- Theme ---------- */
+var root=document.documentElement;
+var savedTheme=null;
+try{savedTheme=localStorage.getItem('dv_theme');}catch(e){}
+if(!savedTheme){savedTheme=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+root.setAttribute('data-theme',savedTheme);
+document.getElementById('themeBtn').addEventListener('click',function(){
+  var next=root.getAttribute('data-theme')==='light'?'dark':'light';
+  root.setAttribute('data-theme',next);
+  try{localStorage.setItem('dv_theme',next);}catch(e){}
+});
+
+/* ---------- Scroll spy nav ---------- */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('#nav a'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));}).filter(Boolean);
+  if(!('IntersectionObserver' in window))return;
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(l){l.classList.remove('active');});
+        var i=secs.indexOf(en.target);
+        if(i>-1)links[i].classList.add('active');
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(function(s){obs.observe(s);});
+})();
+
+/* =========================================================
+   SOCIAL SHARING
+   ========================================================= */
+function escHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function pageUrl(){return /^https?:/.test(location.protocol)?location.href:'';}
+function shareButtons(text){
+  var t=encodeURIComponent(text), u=encodeURIComponent(pageUrl());
+  var items=[
+    ['WhatsApp','wa','https://wa.me/?text='+t],
+    ['X','x','https://twitter.com/intent/tweet?text='+t],
+    ['Facebook','fb','https://www.facebook.com/sharer/sharer.php?u='+u+'&quote='+t],
+    ['LinkedIn','li','https://www.linkedin.com/sharing/share-offsite/?url='+u],
+    ['Telegram','tg','https://t.me/share/url?url='+u+'&text='+t],
+    ['Email','em','mailto:?subject='+encodeURIComponent('Dhavakveer')+'&body='+t]
+  ];
+  var html='<div class="share-row">';
+  items.forEach(function(it){
+    html+='<a class="share-btn share-btn--'+it[1]+'" target="_blank" rel="noopener noreferrer" href="'+it[2]+'">'+it[0]+'</a>';
+  });
+  html+='<button type="button" class="share-btn share-copy" data-copy="'+escHtml(text)+'">Copy text</button>';
+  if(navigator.share){html+='<button type="button" class="share-btn share-native" data-copy="'+escHtml(text)+'">More&hellip;</button>';}
+  html+='</div>';
+  return html;
+}
+function postShareText(p){
+  var lines=['"'+p.content+'"','','— '+p.name+' on Dhavakveer'];
+  var plan=[p.distance,p.level].filter(Boolean).join(' · ');
+  if(plan)lines.push('Training plan: '+plan);
+  if(p.mood)lines.push('Feeling: '+p.mood);
+  var u=pageUrl(); if(u)lines.push(u);
+  return lines.join('\n');
+}
+function planShareText(dist,levelName,plan){
+  var lines=['My Dhavakveer training plan: '+dist.name+' — '+levelName,
+    plan.cfg.weeks+' weeks · peak '+fmt(plan.cfg.peakVol)+' km/wk · longest run '+fmt(plan.cfg.longPeak)+' km',
+    'Train with me on Dhavakveer.'];
+  var u=pageUrl(); if(u)lines.push(u);
+  return lines.join('\n');
+}
+function sprintPlanShareText(ev,levelName,plan){
+  var lines=['My Dhavakveer sprint plan: '+ev.name+' — '+levelName,
+    plan.weeks+' weeks · '+plan.sessions+' sessions/wk · peak sprint volume '+plan.peakM+' m',
+    'Train with me on Dhavakveer.'];
+  var u=pageUrl(); if(u)lines.push(u);
+  return lines.join('\n');
+}
+function dvToast(msg){
+  var el=document.getElementById('dvToast');
+  if(!el){el=document.createElement('div');el.id='dvToast';el.className='toast';el.setAttribute('role','status');document.body.appendChild(el);}
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('show');},2400);
+}
+document.addEventListener('click',function(e){
+  var tog=e.target.closest('.share-toggle');
+  if(tog){
+    var panel=document.getElementById(tog.getAttribute('data-target'));
+    if(panel){panel.hidden=!panel.hidden;tog.setAttribute('aria-expanded',panel.hidden?'false':'true');}
+    return;
+  }
+  var copy=e.target.closest('.share-copy,.share-native');
+  if(copy){
+    var text=copy.getAttribute('data-copy')||'';
+    if(copy.classList.contains('share-native')&&navigator.share){navigator.share({title:'Dhavakveer',text:text}).catch(function(){});return;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){dvToast('Copied — paste it anywhere');},function(){window.prompt('Copy your text:',text);});
+    }else{window.prompt('Copy your text:',text);}
+  }
+});
+
+/* =========================================================
+   TRAINING PLAN ENGINE
+   ========================================================= */
+var LEVELS=[
+  {id:'beginner',name:'Beginner',hint:'New to running, or back after a long break. Walk/run friendly — 3–4 sessions a week.'},
+  {id:'intermediate',name:'Intermediate',hint:'Running 3–5 times a week and ready for structure — quality sessions across 5 days.'},
+  {id:'advanced',name:'Advanced',hint:'Chasing personal bests — 6–7 days a week with intervals, hills and doubles.'}
+];
+var DISTANCES=[
+  {id:'5k',name:'5K',km:5},
+  {id:'10k',name:'10K',km:10},
+  {id:'21k',name:'Half Marathon (21K)',km:21.1},
+  {id:'42k',name:'Marathon (42K)',km:42.2},
+  {id:'50k',name:'50K',km:50},
+  {id:'100k',name:'Ultra (100K+)',km:100}
+];
+// weeks, start/peak weekly volume (km), long-run start/peak (km), level
+var PLANS={
+  '5k':{
+    beginner:{weeks:6,startVol:10,peakVol:22,longStart:4,longPeak:7},
+    intermediate:{weeks:8,startVol:22,peakVol:38,longStart:8,longPeak:12},
+    advanced:{weeks:8,startVol:34,peakVol:58,longStart:11,longPeak:16}
+  },
+  '10k':{
+    beginner:{weeks:8,startVol:14,peakVol:30,longStart:5,longPeak:10},
+    intermediate:{weeks:10,startVol:26,peakVol:46,longStart:9,longPeak:15},
+    advanced:{weeks:10,startVol:40,peakVol:72,longStart:13,longPeak:19}
+  },
+  '21k':{
+    beginner:{weeks:12,startVol:20,peakVol:46,longStart:7,longPeak:18},
+    intermediate:{weeks:12,startVol:32,peakVol:66,longStart:11,longPeak:22},
+    advanced:{weeks:12,startVol:48,peakVol:92,longStart:15,longPeak:26}
+  },
+  '42k':{
+    beginner:{weeks:16,startVol:28,peakVol:64,longStart:10,longPeak:32},
+    intermediate:{weeks:16,startVol:42,peakVol:86,longStart:14,longPeak:32},
+    advanced:{weeks:18,startVol:55,peakVol:112,longStart:18,longPeak:35}
+  },
+  '50k':{
+    beginner:{weeks:18,startVol:34,peakVol:76,longStart:14,longPeak:36},
+    intermediate:{weeks:18,startVol:48,peakVol:96,longStart:18,longPeak:40},
+    advanced:{weeks:20,startVol:62,peakVol:118,longStart:22,longPeak:44}
+  },
+  '100k':{
+    beginner:{weeks:24,startVol:38,peakVol:94,longStart:16,longPeak:42},
+    intermediate:{weeks:24,startVol:54,peakVol:118,longStart:20,longPeak:48},
+    advanced:{weeks:24,startVol:70,peakVol:146,longStart:24,longPeak:54}
+  }
+};
+var DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var WEIGHTS={easy:1,quality:1.28,tempo:1.32,recovery:0.7};
+
+function fmt(v){v=Math.round(v*10)/10;return (Math.abs(v-Math.round(v))<0.05)?String(Math.round(v)):v.toFixed(1);}
+function round05(v){return Math.max(1,Math.round(v*2)/2);}
+
+function dayTemplate(level,isUltra){
+  if(level==='beginner')return ['rest','easy','rest','quality','rest','long','cross'];
+  if(level==='intermediate')return ['rest','quality','easy','tempo','easy','long','rest'];
+  return ['easy','quality','easy','tempo','easy','long',isUltra?'b2b':'recovery'];
+}
+
+function qualityText(level,km,wk){
+  if(level==='beginner'){
+    return ['Walk/run intervals '+fmt(km)+' km','Walk/run 6x1 min brisk','Walk/run intervals '+fmt(km)+' km','Walk/run 8x1 min brisk'][wk%4];
+  }
+  var opts=['Intervals 6x400 m + easy','Intervals 5x800 m','Intervals 4x1 km','Hill repeats 8x45 s'];
+  return opts[wk%4]+' ('+fmt(km)+' km total)';
+}
+
+function sessionText(role,km,ctx){
+  switch(role){
+    case 'rest':return{t:'Rest',c:'s-rest'};
+    case 'cross':return{t:ctx.isUltra?'Cross-train / hike 60 min':'Cross-train 45–60 min',c:'s-cross'};
+    case 'easy':return{t:'Easy '+fmt(km)+' km',c:'s-easy'};
+    case 'recovery':return{t:'Recovery '+fmt(km)+' km',c:'s-easy'};
+    case 'long':return{t:'Long run '+fmt(km)+' km',c:'s-long'};
+    case 'b2b':return{t:'Long run '+fmt(km)+' km (back-to-back)',c:'s-long'};
+    case 'tempo':return{t:'Tempo '+fmt(km)+' km',c:'s-tempo'};
+    case 'quality':return{t:qualityText(ctx.level,km,ctx.wk),c:'s-quality'};
+    default:return{t:'—',c:'s-rest'};
+  }
+}
+
+function distribute(days,total,longKm,isUltra){
+  var out=days.map(function(){return null;});
+  var longIdx=days.indexOf('long');
+  if(longIdx>-1)out[longIdx]=longKm;
+  if(isUltra&&days.indexOf('b2b')>-1)out[days.indexOf('b2b')]=Math.max(6,longKm*0.7);
+  var others=[];
+  days.forEach(function(r,i){if(['easy','quality','tempo','recovery'].indexOf(r)>-1)others.push({r:r,i:i});});
+  var used=out.reduce(function(a,b){return a+(b||0);},0);
+  var remaining=Math.max(total-used,others.length*2.5);
+  var W=others.reduce(function(s,d){return s+WEIGHTS[d.r];},0)||1;
+  others.forEach(function(d){out[d.i]=round05(remaining*WEIGHTS[d.r]/W);});
+  return out;
+}
+
+function raceWeek(dist,days){
+  var easy=[4,5,4];var km=[];var out=days.map(function(){return {t:'Rest',c:'s-rest'};});
+  // Mon rest, Tue 4 easy, Wed 5 easy, Thu 4 easy, Fri rest, Sat 3 shakeout, Sun RACE
+  out[0]={t:'Rest',c:'s-rest'};
+  out[1]={t:'Easy 4 km',c:'s-easy'};
+  out[2]={t:'Easy 5 km',c:'s-easy'};
+  out[3]={t:'Easy 4 km + 3x1 min',c:'s-easy'};
+  out[4]={t:'Rest',c:'s-rest'};
+  out[5]={t:'Shakeout 3 km',c:'s-easy'};
+  out[6]={t:'RACE — '+dist.name,c:'s-race'};
+  return {cells:out,total:4+5+4+3+dist.km};
+}
+
+function buildPlan(distId,levelId){
+  var dist=DISTANCES.filter(function(d){return d.id===distId;})[0];
+  var cfg=PLANS[distId][levelId];
+  var isUltra=(distId==='50k'||distId==='100k');
+  var taper=(distId==='42k'||isUltra)?3:(distId==='21k'?2:1);
+  var buildWeeks=Math.max(1,cfg.weeks-taper);
+
+  var baseN=Math.max(1,Math.round(buildWeeks*0.4));
+  var buildN=Math.max(1,Math.round(buildWeeks*0.35));
+  var peakN=Math.max(1,buildWeeks-baseN-buildN);
+  var phases=[];
+  for(var a=0;a<baseN;a++)phases.push('base');
+  for(var b=0;b<buildN;b++)phases.push('build');
+  for(var c=0;c<peakN;c++)phases.push('peak');
+  if(taper===3)phases.push('taper','taper','race');
+  else if(taper===2)phases.push('taper','race');
+  else phases.push('race');
+
+  var days=dayTemplate(levelId,isUltra);
+  var rows=[],planTotal=0;
+
+  phases.forEach(function(ph,idx){
+    var wk=idx+1,row;
+    if(ph==='race'){
+      var rw=raceWeek(dist,days);
+      row={wk:wk,phase:'race',focus:'Race week — rest, sharpen, and go. Trust your training.',cells:rw.cells,total:rw.total};
+    }else{
+      var p=buildWeeks<=1?1:idx/(buildWeeks-1);
+      var total,longKm;
+      if(ph==='peak'){total=cfg.peakVol;longKm=cfg.longPeak;}
+      else{total=cfg.startVol+(cfg.peakVol-cfg.startVol)*p;longKm=cfg.longStart+(cfg.longPeak-cfg.longStart)*p;}
+      var isRecovery=(wk%4===0&&wk<buildWeeks);
+      if(isRecovery){total*=0.82;longKm*=0.85;}
+      var cells;
+      if(ph==='taper'){
+        var ti=(phases.slice(0,idx).filter(function(x){return x==='taper';}).length);
+        total=cfg.peakVol*(ti===0?0.6:0.42);
+        longKm=cfg.longPeak*(ti===0?0.7:0.5);
+      }
+      var vals=distribute(days,total,longKm,isUltra);
+      cells=days.map(function(role,i){return sessionText(role,vals[i],{level:levelId,wk:wk,isUltra:isUltra});});
+      total=vals.reduce(function(s,v){return s+(v||0);},0);
+      var focus;
+      if(ph==='base')focus='Aerobic base — keep it conversational and build the habit.';
+      else if(ph==='build')focus='Add quality — tempo and intervals sharpen your pace.';
+      else if(ph==='peak')focus='Peak block — biggest long run; rehearse fuelling and race kit.';
+      else focus='Taper — cut volume, stay light, arrive fresh.';
+      if(isRecovery)focus='Recovery week — ease back ~20% so adaptation catches up.';
+      if(isUltra&&ph!=='taper')focus+=' Back-to-back weekend builds time on feet.';
+      row={wk:wk,phase:ph,focus:focus,cells:cells,total:total};
+    }
+    planTotal+=row.total;
+    rows.push(row);
+  });
+
+  var sessions=days.filter(function(d){return d!=='rest';}).length;
+  return {dist:dist,cfg:cfg,isUltra:isUltra,rows:rows,total:planTotal,sessions:sessions};
+}
+
+var PHASE_LABEL={base:'Base',build:'Build',peak:'Peak',taper:'Taper',race:'Race'};
+
+function renderPlans(levelId){
+  var out=document.getElementById('plansOut');
+  var html='';
+  DISTANCES.forEach(function(dist,i){
+    var plan=buildPlan(dist.id,levelId);
+    html+='<details class="plan"'+(i===0?' open':'')+'>';
+    html+='<summary><span class="plan__chev"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l6 6-6 6"/></svg></span>';
+    html+='<span class="plan__dist">'+dist.name+'</span>';
+    html+='<span class="plan__meta"><span class="tag tag--ember">'+plan.cfg.weeks+' weeks</span><span class="tag">'+plan.sessions+' sessions/wk</span>'+(plan.isUltra?'<span class="tag tag--amber">Ultra</span>':'')+'</span></summary>';
+    html+='<div class="plan__facts">';
+    html+='<div class="fact"><span class="fact__v">'+plan.cfg.weeks+'</span><span class="fact__l">Weeks</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+fmt(plan.cfg.peakVol)+' km</span><span class="fact__l">Peak week</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+fmt(plan.cfg.longPeak)+' km</span><span class="fact__l">Longest run</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+plan.sessions+'</span><span class="fact__l">Sessions/wk</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+fmt(plan.total)+' km</span><span class="fact__l">Plan volume</span></div>';
+    html+='</div>';
+    html+='<div class="plan__body"><div class="table-scroll"><table class="data"><thead><tr><th>Wk</th><th>Phase</th><th>Focus</th>';
+    DAYS.forEach(function(d){html+='<th>'+d+'</th>';});
+    html+='<th>Total</th></tr></thead><tbody>';
+    plan.rows.forEach(function(r){
+      html+='<tr><td class="wk">'+r.wk+'</td><td><span class="pill pill--'+r.phase+'">'+PHASE_LABEL[r.phase]+'</span></td>';
+      html+='<td class="focus">'+r.focus+'</td>';
+      r.cells.forEach(function(cell){html+='<td class="'+cell.c+'">'+cell.t+'</td>';});
+      html+='<td class="total">'+fmt(r.total)+'</td></tr>';
+    });
+    html+='</tbody></table></div>';
+    var lvlName=LEVELS.filter(function(x){return x.id===levelId;})[0].name;
+    html+='<div class="plan__share"><button type="button" class="share-toggle" data-target="share-plan-'+dist.id+'-'+levelId+'" aria-expanded="false">Share this plan</button><div class="share-panel" id="share-plan-'+dist.id+'-'+levelId+'" hidden><div class="share-label">Share your training plan</div>'+shareButtons(planShareText(dist,lvlName,plan))+'</div></div>';
+    html+='</div></details>';
+  });
+  out.innerHTML=html;
+}
+
+/* Level selector */
+(function(){
+  var seg=document.getElementById('levelSeg');
+  var hint=document.getElementById('levelHint');
+  LEVELS.forEach(function(lv){
+    var b=document.createElement('button');
+    b.type='button';b.textContent=lv.name;b.setAttribute('aria-pressed',lv.id==='beginner');
+    b.addEventListener('click',function(){
+      [].slice.call(seg.children).forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      hint.textContent=lv.hint;
+      renderPlans(lv.id);
+    });
+    seg.appendChild(b);
+  });
+  hint.textContent=LEVELS[0].hint;
+  renderPlans('beginner');
+})();
+
+/* =========================================================
+   RACE-WEEK KIT CHECKLIST (persisted)
+   ========================================================= */
+(function(){
+  var items=['Running shoes (broken in)','Race kit / singlet + shorts','Socks (anti-blister)','Race bib + safety pins','Timing chip / watch charged','Gels, chews or race fuel','Water bottle / belt','Electrolyte tabs','Anti-chafe balm','Sunscreen + cap','Light rain jacket / throwaway layer','Post-race dry clothes','Bag for bag drop','Photo ID + race info'];
+  var wrap=document.getElementById('kitCheck');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem('dv_kit')||'{}');}catch(e){state={};}
+  items.forEach(function(it,i){
+    var id='kit'+i;
+    var lab=document.createElement('label');
+    lab.setAttribute('for',id);
+    lab.innerHTML='<input type="checkbox" id="'+id+'"'+(state[it]?' checked':'')+'><span>'+it+'</span>';
+    lab.querySelector('input').addEventListener('change',function(e){
+      state[it]=e.target.checked;
+      try{localStorage.setItem('dv_kit',JSON.stringify(state));}catch(err){}
+    });
+    wrap.appendChild(lab);
+  });
+})();
+
+/* =========================================================
+   COMMUNITY FEED (localStorage)
+   ========================================================= */
+var COMMUNITY=(function(){
+  var KEY='dv_posts',UIDKEY='dv_uid';
+  var myUid=null;
+  try{myUid=localStorage.getItem(UIDKEY);if(!myUid){myUid='u'+Date.now()+Math.random().toString(36).slice(2,7);localStorage.setItem(UIDKEY,myUid);}}catch(e){myUid='guest';}
+
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+  function save(list){try{localStorage.setItem(KEY,JSON.stringify(list));}catch(e){}}
+
+  // The feed starts empty. Any legacy sample posts (uid 'seed') left in a
+  // returning visitor's browser are stripped out so only real posts remain.
+  var posts=load();
+  var cleaned=posts.filter(function(p){return p.uid!=='seed';});
+  if(cleaned.length!==posts.length){posts=cleaned;save(posts);}
+
+  var filter='all';
+  var feed=document.getElementById('feed');
+
+  function typeLabel(t){return t==='plan'?'Plan':t==='experience'?'Experience':t==='feeling'?'Feeling':t;}
+  function typeClass(t){return t==='plan'?'tag--ember':t==='feeling'?'tag--amber':'tag';}
+  function timeAgo(ts){
+    var s=Math.floor((Date.now()-ts)/1000);
+    if(s<60)return 'just now';
+    if(s<3600)return Math.floor(s/60)+' min ago';
+    if(s<86400)return Math.floor(s/3600)+' h ago';
+    return Math.floor(s/86400)+' d ago';
+  }
+  function esc(str){return String(str).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
+
+  function render(){
+    var list=posts.slice().sort(function(a,b){return b.ts-a.ts;});
+    if(filter!=='all')list=list.filter(function(p){return p.type===filter;});
+    if(!list.length){feed.innerHTML='<div class="empty">Nothing here yet. Be the first to share.</div>';return;}
+    feed.innerHTML=list.map(function(p){
+      var initial=(p.name||'?').trim().charAt(0).toUpperCase()||'?';
+      var meta='';
+      if(p.distance)meta+='<span class="tag">'+esc(p.distance)+'</span>';
+      if(p.level)meta+='<span class="tag">'+esc(p.level)+'</span>';
+      if(p.mood)meta+='<span class="tag tag--amber">Feeling: '+esc(p.mood)+'</span>';
+      var del=(p.uid===myUid)?'<button class="btn btn--danger post__del" data-del="'+p.id+'">Delete</button>':'';
+      var pid='share-post-'+p.id;
+      return '<article class="post">'+
+        '<div class="post__top"><span class="post__avatar">'+esc(initial)+'</span>'+
+        '<span class="post__name">'+esc(p.name)+'</span>'+
+        '<span class="tag '+typeClass(p.type)+'">'+typeLabel(p.type)+'</span>'+
+        '<span class="post__time">'+timeAgo(p.ts)+'</span></div>'+
+        '<div class="post__body">'+esc(p.content)+'</div>'+
+        '<div class="post__meta">'+meta+
+          '<button type="button" class="share-toggle" data-target="'+pid+'" aria-expanded="false">Share</button>'+del+'</div>'+
+        '<div class="share-panel" id="'+pid+'" hidden><div class="share-label">Share this experience + plan</div>'+shareButtons(postShareText(p))+'</div>'+
+        '</article>';
+    }).join('');
+  }
+
+  feed.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-del]');
+    if(!btn)return;
+    var id=btn.getAttribute('data-del');
+    if(!window.confirm('Delete this post?'))return;
+    posts=posts.filter(function(p){return p.id!==id;});
+    save(posts);render();
+  });
+
+  // filters
+  var filters=document.getElementById('feedFilters');
+  filters.addEventListener('click',function(e){
+    var chip=e.target.closest('.chip');
+    if(!chip)return;
+    [].slice.call(filters.querySelectorAll('.chip')).forEach(function(c){c.setAttribute('aria-pressed','false');});
+    chip.setAttribute('aria-pressed','true');
+    filter=chip.getAttribute('data-filter');
+    render();
+  });
+
+  // mood picker
+  var selectedMood='';
+  var moodRow=document.getElementById('moodRow');
+  moodRow.addEventListener('click',function(e){
+    var b=e.target.closest('.mood-btn');
+    if(!b)return;
+    var was=b.getAttribute('aria-pressed')==='true';
+    [].slice.call(moodRow.querySelectorAll('.mood-btn')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+    if(!was){b.setAttribute('aria-pressed','true');selectedMood=b.getAttribute('data-mood');}
+    else{selectedMood='';}
+  });
+
+  // submit
+  document.getElementById('postForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('pName').value.trim();
+    var content=document.getElementById('pBody').value.trim();
+    var msg=document.getElementById('formMsg');
+    if(!name||!content){msg.textContent='Please add your name and a message.';return;}
+    posts.push({
+      id:'p'+Date.now()+Math.random().toString(36).slice(2,6),
+      uid:myUid,name:name,
+      type:document.getElementById('pType').value,
+      distance:document.getElementById('pDist').value,
+      level:document.getElementById('pLevel').value,
+      mood:selectedMood,content:content,ts:Date.now()
+    });
+    save(posts);render();
+    e.target.reset();
+    selectedMood='';
+    [].slice.call(moodRow.querySelectorAll('.mood-btn')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+    msg.textContent='Posted — thank you for sharing!';
+    setTimeout(function(){msg.textContent='';},4000);
+  });
+
+  render();
+  return {render:render};
+})();
+
+/* =========================================================
+   PACE CALCULATOR
+   ========================================================= */
+(function(){
+  var distSel=document.getElementById('calcDist');
+  var customWrap=document.getElementById('customWrap');
+  var out=document.getElementById('paceOut');
+  distSel.addEventListener('change',function(){customWrap.style.display=distSel.value==='custom'?'flex':'none';calc();});
+  ['calcCustom','calcH','calcM','calcS'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+
+  function pad(n){return (n<10?'0':'')+n;}
+  function fmtTime(sec){sec=Math.round(sec);var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return (h>0?h+':'+pad(m):m)+':'+pad(s);}
+
+  function calc(){
+    var dist=distSel.value==='custom'?parseFloat(document.getElementById('calcCustom').value||'0'):parseFloat(distSel.value);
+    var h=parseInt(document.getElementById('calcH').value||'0',10);
+    var m=parseInt(document.getElementById('calcM').value||'0',10);
+    var s=parseInt(document.getElementById('calcS').value||'0',10);
+    var totalSec=h*3600+m*60+s;
+    if(!dist||dist<=0||!totalSec){out.innerHTML='<span class="dim">Enter a distance and a target time.</span>';return;}
+    var perKm=totalSec/dist;
+    var perMile=perKm*1.60934;
+    var html='<div class="big-pace">';
+    html+='<div><span class="v">'+fmtTime(perKm)+'</span><span class="l">per km</span></div>';
+    html+='<div><span class="v">'+fmtTime(perMile)+'</span><span class="l">per mile</span></div>';
+    html+='<div><span class="v">'+fmtTime(totalSec)+'</span><span class="l">finish time</span></div>';
+    html+='</div>';
+    // splits
+    html+='<div class="splits">';
+    var whole=Math.floor(dist);
+    var showEvery=(whole>60)?5:(whole>25?2:1);
+    for(var i=1;i<=whole;i++){
+      if(i%showEvery!==0&&i!==whole)continue;
+      html+='<div><span class="dim">'+i+' km</span><span>'+fmtTime(perKm*i)+'</span></div>';
+    }
+    if(dist>whole){html+='<div><span class="dim">'+fmt(dist)+' km (finish)</span><span>'+fmtTime(totalSec)+'</span></div>';}
+    html+='</div>';
+    out.innerHTML=html;
+  }
+  calc();
+})();
+
+/* =========================================================
+   TRAINING LOG
+   ========================================================= */
+(function(){
+  var KEY='dv_log';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+  function save(l){try{localStorage.setItem(KEY,JSON.stringify(l));}catch(e){}}
+  var log=load();
+  var listEl=document.getElementById('logList');
+  var barsEl=document.getElementById('logBars');
+  var dateEl=document.getElementById('logDate');
+
+  // default date to today
+  var today=new Date();
+  dateEl.value=today.toISOString().slice(0,10);
+
+  function weekStart(){
+    var d=new Date();d.setHours(0,0,0,0);
+    var day=(d.getDay()+6)%7; // Monday = 0
+    d.setDate(d.getDate()-day);
+    return d;
+  }
+  function render(){
+    // stats
+    var ws=weekStart().getTime();
+    var week=0,all=0;
+    log.forEach(function(e){
+      var t=new Date(e.date+'T00:00:00').getTime();
+      all+=e.km;
+      if(t>=ws)week+=e.km;
+    });
+    document.getElementById('weekTotal').textContent=fmt(week);
+    document.getElementById('allTotal').textContent=fmt(all);
+    document.getElementById('runCount').textContent=log.length;
+
+    // bars: last 8 entries
+    var recent=log.slice(-8);
+    var max=Math.max.apply(null,recent.map(function(e){return e.km;}).concat([1]));
+    barsEl.innerHTML=recent.map(function(e){
+      var h=Math.max(6,Math.round(e.km/max*74));
+      return '<div class="bar" style="height:'+h+'px" title="'+e.km+' km"><span>'+fmt(e.km)+'</span></div>';
+    }).join('');
+
+    // list (newest first)
+    var sorted=log.slice().sort(function(a,b){return (b.date>b.date)?1:(b.date<a.date?-1:0);});
+    if(!sorted.length){listEl.innerHTML='<div class="empty" style="padding:16px">No runs logged yet.</div>';return;}
+    listEl.innerHTML=sorted.map(function(e){
+      return '<div class="log-item"><span class="d">'+e.date+'</span><span class="k">'+fmt(e.km)+' km</span>'+
+        '<span class="dim">'+esc(e.type)+(e.feel?' · '+esc(e.feel):'')+'</span>'+
+        '<button class="btn btn--danger" style="margin-left:auto" data-logdel="'+e.id+'">Remove</button></div>';
+    }).join('');
+  }
+  function esc(s){return String(s).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
+
+  document.getElementById('logForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var km=parseFloat(document.getElementById('logKm').value);
+    var date=dateEl.value;
+    if(!km||km<=0||!date)return;
+    log.push({
+      id:'l'+Date.now()+Math.random().toString(36).slice(2,5),
+      date:date,km:km,
+      type:document.getElementById('logType').value,
+      feel:document.getElementById('logFeel').value.trim()
+    });
+    save(log);render();
+    document.getElementById('logKm').value='';
+    document.getElementById('logFeel').value='';
+  });
+
+  listEl.addEventListener('click',function(e){
+    var b=e.target.closest('[data-logdel]');
+    if(!b)return;
+    var id=b.getAttribute('data-logdel');
+    log=log.filter(function(x){return x.id!==id;});
+    save(log);render();
+  });
+
+  render();
+})();
+
+/* =========================================================
+   SPRINT PLAN ENGINE
+   ========================================================= */
+var SPRINT_EVENTS=[
+  {id:'60m', name:'60m (Indoor)', comp:2, kind:'short'},
+  {id:'100m',name:'100m',         comp:2, kind:'short'},
+  {id:'200m',name:'200m',         comp:3, kind:'long'},
+  {id:'400m',name:'400m',         comp:3, kind:'long'}
+];
+var SPRINT_WEEKS={
+  '60m': {beginner:8, intermediate:10, advanced:10},
+  '100m':{beginner:10,intermediate:10, advanced:12},
+  '200m':{beginner:10,intermediate:12, advanced:12},
+  '400m':{beginner:12,intermediate:12, advanced:14}
+};
+var SPRINT_PHASE_LABEL={gpp:'GPP',spp:'SPP',comp:'Comp',speak:'Peak'};
+var SPRINT_LOAD={gpp:['med','Moderate'],spp:['high','High'],comp:['high','High'],speak:['low','Low']};
+
+function sprintTemplate(level,is400){
+  if(is400){
+    if(level==='beginner')return ['rest','accel','rest','tempo','rest','specialend','gym'];
+    if(level==='intermediate')return ['rest','accel','tempo','specialend','gym','speedend','rest'];
+    return ['accel','gym','maxv','tempo','plyo','specialend','rest'];
+  }
+  if(level==='beginner')return ['rest','accel','rest','tempo','rest','speedend','gym'];
+  if(level==='intermediate')return ['rest','accel','tempo','maxv','gym','speedend','rest'];
+  return ['accel','gym','maxv','tempo','plyo','speedend','rest'];
+}
+
+function sprintSession(role,phase,ev){
+  switch(role){
+    case 'rest':return {t:'Rest',c:'s-rest',m:0};
+    case 'tempo':
+      if(phase==='gpp')return {t:'Extensive tempo 10×100 m (65–70%)',c:'s-easy',m:1000};
+      if(phase==='spp')return {t:'Extensive tempo 8×100 m (70%)',c:'s-easy',m:800};
+      return {t:'Extensive tempo 6×100 m + mobility',c:'s-easy',m:600};
+    case 'accel':
+      if(phase==='gpp')return {t:'Block starts 8×20 m (walk-back)',c:'s-quality',m:160};
+      if(phase==='spp')return {t:'Block starts 6×30 m (full recovery)',c:'s-quality',m:180};
+      return {t:'Block starts 4×30 m + 2×60 m',c:'s-quality',m:240};
+    case 'maxv':
+      if(phase==='gpp')return {t:'Flying 20s 5×20 m',c:'s-quality',m:100};
+      if(phase==='spp')return {t:'Flying 30s 4×30 m (full recovery)',c:'s-quality',m:120};
+      return {t:'Flying 30s 3×30 m + 1×60 m',c:'s-quality',m:150};
+    case 'speedend':
+      if(phase==='gpp')return {t:'Speed endurance 4×'+(ev.kind==='short'?'120':'150')+' m (90%)',c:'s-tempo',m:(ev.kind==='short'?480:600)};
+      if(phase==='spp')return {t:'Speed endurance 3×150 m (95%)',c:'s-tempo',m:450};
+      return {t:'Speed endurance 2×150 m race pace',c:'s-tempo',m:300};
+    case 'specialend':
+      if(phase==='gpp')return {t:'Special endurance 4×200 m (80%)',c:'s-long',m:800};
+      if(phase==='spp')return {t:'Special endurance 3×300 m (85–90%)',c:'s-long',m:900};
+      return {t:'Race-pace 2×300 m + 1×200 m',c:'s-long',m:800};
+    case 'gym':
+      if(phase==='gpp')return {t:'Gym: squat, RDL, core — 4×6',c:'s-cross',m:0};
+      if(phase==='spp')return {t:'Gym: power clean, squat — 5×3 heavy',c:'s-cross',m:0};
+      return {t:'Gym: light power — 3×3 explosive',c:'s-cross',m:0};
+    case 'plyo':return {t:'Plyometrics: bounds, box jumps, med-ball 4×6',c:'s-cross',m:0};
+    default:return {t:'—',c:'s-rest',m:0};
+  }
+}
+
+function buildSprintPlan(eventId,levelId){
+  var ev=SPRINT_EVENTS.filter(function(e){return e.id===eventId;})[0];
+  var weeks=SPRINT_WEEKS[eventId][levelId];
+  var is400=(eventId==='400m');
+  var comp=ev.comp;
+  var rest=weeks-comp;
+  var spp=Math.max(1,Math.round(rest*0.5));
+  var gpp=Math.max(1,rest-spp);
+  while(gpp+spp+comp>weeks&&gpp>1)gpp--;
+  while(gpp+spp+comp<weeks)spp++;
+  var phases=[];
+  for(var a=0;a<gpp;a++)phases.push('gpp');
+  for(var b=0;b<spp;b++)phases.push('spp');
+  for(var c=0;c<comp;c++)phases.push('comp');
+  phases[phases.length-1]='speak';
+  var days=sprintTemplate(levelId,is400);
+  var rows=[],peakM=0;
+  phases.forEach(function(ph,idx){
+    var cells=days.map(function(role){return sprintSession(role,ph,ev);});
+    var meters=cells.reduce(function(s,x){return s+x.m;},0);
+    if(meters>peakM)peakM=meters;
+    var focus;
+    if(ph==='gpp')focus='General prep — build work capacity, technique and general strength.';
+    else if(ph==='spp')focus='Specific prep — sharpen max velocity and event-specific endurance.';
+    else if(ph==='comp')focus='Competition phase — race-pace work, starts and sharpening.';
+    else focus='Peak & taper — cut volume, stay explosive, race fast.';
+    rows.push({wk:idx+1,phase:ph,focus:focus,cells:cells,meters:meters});
+  });
+  var sessions=days.filter(function(d){return d!=='rest';}).length;
+  var sprintDays=days.filter(function(d){return ['accel','maxv','speedend','specialend','tempo'].indexOf(d)>-1;}).length;
+  var gymDays=days.filter(function(d){return ['gym','plyo'].indexOf(d)>-1;}).length;
+  return {ev:ev,weeks:weeks,rows:rows,sessions:sessions,sprintDays:sprintDays,gymDays:gymDays,peakM:peakM};
+}
+
+function renderSprint(levelId){
+  var out=document.getElementById('sprintOut');
+  if(!out)return;
+  var html='';
+  SPRINT_EVENTS.forEach(function(ev,i){
+    var plan=buildSprintPlan(ev.id,levelId);
+    html+='<details class="plan"'+(i===0?' open':'')+'>';
+    html+='<summary><span class="plan__chev"><svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l6 6-6 6"/></svg></span>';
+    html+='<span class="plan__dist">'+ev.name+'</span>';
+    html+='<span class="plan__meta"><span class="tag tag--ember">'+plan.weeks+' weeks</span><span class="tag">'+plan.sessions+' sessions/wk</span><span class="tag tag--amber">Track</span></span></summary>';
+    html+='<div class="plan__facts">';
+    html+='<div class="fact"><span class="fact__v">'+plan.weeks+'</span><span class="fact__l">Weeks</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+plan.sessions+'</span><span class="fact__l">Sessions/wk</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+plan.sprintDays+'</span><span class="fact__l">Sprint days/wk</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+plan.gymDays+'</span><span class="fact__l">Gym / plyo days</span></div>';
+    html+='<div class="fact"><span class="fact__v">'+plan.peakM+' m</span><span class="fact__l">Peak sprint volume</span></div>';
+    html+='</div>';
+    html+='<div class="plan__body"><div class="table-scroll"><table class="data"><thead><tr><th>Wk</th><th>Phase</th><th>Focus</th>';
+    DAYS.forEach(function(d){html+='<th>'+d+'</th>';});
+    html+='<th>Load</th></tr></thead><tbody>';
+    plan.rows.forEach(function(r){
+      var load=SPRINT_LOAD[r.phase];
+      html+='<tr><td class="wk">'+r.wk+'</td><td><span class="pill pill--'+r.phase+'">'+SPRINT_PHASE_LABEL[r.phase]+'</span></td>';
+      html+='<td class="focus">'+r.focus+'</td>';
+      r.cells.forEach(function(cell){html+='<td class="'+cell.c+'">'+cell.t+'</td>';});
+      html+='<td><span class="load load--'+load[0]+'">'+load[1]+'</span></td></tr>';
+    });
+    html+='</tbody></table></div>';
+    var lvlName=LEVELS.filter(function(x){return x.id===levelId;})[0].name;
+    html+='<div class="plan__share"><button type="button" class="share-toggle" data-target="share-sprint-'+ev.id+'-'+levelId+'" aria-expanded="false">Share this plan</button><div class="share-panel" id="share-sprint-'+ev.id+'-'+levelId+'" hidden><div class="share-label">Share your sprint plan</div>'+shareButtons(sprintPlanShareText(ev,lvlName,plan))+'</div></div>';
+    html+='</div></details>';
+  });
+  out.innerHTML=html;
+}
+
+/* Sprint level selector */
+(function(){
+  var seg=document.getElementById('sprintLevelSeg');
+  var hint=document.getElementById('sprintLevelHint');
+  if(!seg)return;
+  LEVELS.forEach(function(lv){
+    var btn=document.createElement('button');
+    btn.type='button';btn.textContent=lv.name;btn.setAttribute('aria-pressed',lv.id==='beginner');
+    btn.addEventListener('click',function(){
+      [].slice.call(seg.children).forEach(function(x){x.setAttribute('aria-pressed','false');});
+      btn.setAttribute('aria-pressed','true');
+      hint.textContent=lv.hint;
+      renderSprint(lv.id);
+    });
+    seg.appendChild(btn);
+  });
+  hint.textContent=LEVELS[0].hint;
+  renderSprint('beginner');
+})();
+
+/* =========================================================
+   RACE TIMELINE
+   ========================================================= */
+var RACES=[
+  {d:"2016-11-13",e:"WNC Navy Half Marathon 2016",loc:"BKC, Bandra, Mumbai",t:"00:53:06",c:"10k"},
+  {d:"2016-12-11",e:"VVMC Mayor's Marathon 2016",loc:"Vasai Virar, Palghar",t:"02:21:53",c:"21k"},
+  {d:"2017-10-15",e:"Vasai Heritage Run",loc:"Vasai, Palghar",t:"00:55:14",c:"10k"},
+  {d:"2017-10-29",e:"Custom Half Marathon - Heritage Run",loc:"Ballard Estate/Colaba, Mumbai",t:"02:03:33",c:"21k"},
+  {d:"2017-11-19",e:"WNC Navy Half Marathon 2017",loc:"BKC, Bandra, Mumbai",t:"01:56:19",c:"21k"},
+  {d:"2018-01-21",e:"Tata Mumbai Marathon 2018",loc:"Mumbai",t:"04:42:24",c:"42k"},
+  {d:"2018-02-04",e:"SBI Green Marathon 2018",loc:"BKC, Bandra, Mumbai",t:"02:05:46",c:"21k"},
+  {d:"2018-02-08",e:"24hrs Stadium Run - Thane",loc:"Thane",t:"24:00:00",c:"115k"},
+  {d:"2018-02-18",e:"Gold Gym Fitness Run",loc:"Goregaon East, Mumbai",t:"00:52:05",c:"10k"},
+  {d:"2018-02-24",e:"BNP Ultra 50.0",loc:"Borivali National Park, Borivali, Mumbai",t:"06:22:38",c:"50k"},
+  {d:"2018-03-04",e:"The Heart And Sole Run",loc:"Bandstand, Bandra",t:"01:00:00",c:"12k"},
+  {d:"2018-03-12",e:"Press For Progress Run",loc:"Nirlon Knowledge Park, Mumbai",t:"00:25:00",c:"5k"},
+  {d:"2018-08-26",e:"IIT Bombay Half Marathon 2018",loc:"IIT Mumbai, Powai, Mumbai",t:"02:04:21",c:"21k"},
+  {d:"2018-09-02",e:"Thane Mayor's Varsha Marathon 2018",loc:"Thane",t:"02:00:16",c:"21k"},
+  {d:"2018-09-09",e:"Practise Run - IDBI Marathon",loc:"Viviana Mall, Thane",t:"01:30:00",c:"14k"},
+  {d:"2018-09-30",e:"IDBI Mumbai Half Marathon",loc:"BKC, Bandra, Mumbai",t:"02:14:16",c:"21k"},
+  {d:"2018-10-14",e:"Thane Marathon 10K - Run for Education",loc:"Viviana Mall, Thane",t:"02:00:16",c:"10k"},
+  {d:"2018-10-28",e:"Mahabaleshwar Endurathon",loc:"Mahabaleshwar",t:"07:09:56",c:"50k"},
+  {d:"2018-11-18",e:"WNC Navy Half Marathon 2018",loc:"BKC, Bandra, Mumbai",t:"02:22:41",c:"21k"},
+  {d:"2018-11-25",e:"The Tribute Run",loc:"Worli, Mumbai",t:"01:55:27",c:"21k"},
+  {d:"2018-12-09",e:"SRT Trail Run 53k",loc:"Singhgad-Rajgad-Torna, Pune",t:"12:15:00",c:"53km"},
+  {d:"2019-01-20",e:"Tata Mumbai Marathon 2019",loc:"Mumbai",t:"05:25:01",c:"42k"},
+  {d:"2019-03-09",e:"Balance for Better Run",loc:"Nirlon Knowledge Park, Mumbai",t:"00:21:09",c:"4k"},
+  {d:"2019-06-30",e:"Sinhagad Epic Trail",loc:"Sinhagad Fort, Pune",t:"11:09:06",c:"42k"},
+  {d:"2019-08-25",e:"IDBI Mumbai Half Marathon",loc:"BKC, Bandra, Mumbai",t:"02:39:53",c:"21k"},
+  {d:"2019-09-01",e:"Chatrapati Shivaji Maharaj Half Marathon",loc:"Bandra Fort, Bandra West, Mumbai",t:"",c:"21k"},
+  {d:"2019-09-08",e:"Ladakh Marathon",loc:"Leh, Ladakh",t:"06:09:49",c:"42.195km"},
+  {d:"2019-10-02",e:"Wildlife week 2019 run",loc:"Borivali National Park, Mumbai",t:"20:00",c:"5km"},
+  {d:"2019-11-17",e:"WNC Navy Half Marathon 2019",loc:"BKC, Bandra, Mumbai",t:"02:22:14",c:"21k"},
+  {d:"2019-12-08",e:"SRT Ultra Marathon",loc:"Singhgad-Rajgad-Torna, Pune",t:"11:39:33",c:"53km"},
+  {d:"2020-01-19",e:"Tata Mumbai Marathon 2020",loc:"Mumbai",t:"05:54:30",c:"42k"},
+  {d:"2021-12-11",e:"SRT Ultra Marathon",loc:"Singhgad-Rajgad-Torna, Pune",t:"DNF - 12:15:21",c:"54km"},
+  {d:"2022-02-19",e:"Mahabaleshwar Endurathon",loc:"Mahabaleshwar",t:"28:55:07",c:"100k"},
+  {d:"2022-08-13",e:"Indian Navy Mumbai Heritage Run 2022",loc:"Mumbai",t:"01:18:48",c:"10k"},
+  {d:"2022-12-10",e:"SRT Ultra Marathon",loc:"Singhgad-Rajgad-Torna, Pune",t:"11:52:30",c:"53km"},
+  {d:"2023-01-15",e:"Tata Mumbai Marathon 2023",loc:"Mumbai",t:"05:56:37",c:"50k"},
+  {d:"2023-02-04",dl:"4–5 Feb 2023",e:"Mahabaleshwar Endurathon",loc:"Mahabaleshwar",t:"14:53:37",c:"89.9km"},
+  {d:"2023-02-26",e:"Tata Ultra Marathon 2023",loc:"Lonavala",t:"06:54:30",c:"42k"},
+  {d:"2024-02-25",e:"Tata Ultra Marathon 2024",loc:"Lonavala",t:"07:19:07",c:"50k"},
+  {d:"2024-06-29",e:"Sinhagad Epic Trail 2024",loc:"Sinhagad, Pune",t:"10:53:18",c:"42k"}
+];
+function fmtRaceDate(iso){
+  if(iso.length===4)return iso;
+  var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var p=iso.split("-");
+  return parseInt(p[2],10)+" "+m[parseInt(p[1],10)-1]+" "+p[0];
+}
+(function renderRaces(){
+  var tl=document.getElementById("raceTimeline");
+  var st=document.getElementById("raceStats");
+  if(!tl)return;
+  var years={},order=[];
+  RACES.forEach(function(r){var y=r.d.slice(0,4);if(!years[y]){years[y]=[];order.push(y);}years[y].push(r);});
+  order.sort();
+  var html="";
+  order.forEach(function(y){
+    html+='<div class="race-year">'+y+'</div>';
+    years[y].forEach(function(r){
+      html+='<div class="race-item"><div class="race-card">'+
+        '<div class="race-main"><div class="race-name">'+escHtml(r.e)+'</div><div class="race-meta">'+(r.dl?escHtml(r.dl):fmtRaceDate(r.d))+' · '+escHtml(r.loc)+'</div></div>'+
+        '<div class="race-right">'+(r.c?'<div class="race-dist">'+escHtml(r.c)+'</div>':'')+'<div class="race-time">'+(r.t?escHtml(r.t):'—')+'</div></div>'+
+      '</div></div>';
+    });
+  });
+  tl.innerHTML=html;
+  if(st){
+    st.innerHTML=
+      '<div class="race-stat"><span class="race-stat__v">'+RACES.length+'</span><span class="race-stat__l">Races</span></div>'+
+      '<div class="race-stat"><span class="race-stat__v">'+order[0]+'–'+order[order.length-1].slice(2)+'</span><span class="race-stat__l">Years</span></div>'+
+      '<div class="race-stat"><span class="race-stat__v">4K–115K</span><span class="race-stat__l">Distances</span></div>'+
+      '<div class="race-stat"><span class="race-stat__v">Road · Trail</span><span class="race-stat__l">Surfaces</span></div>';
+  }
+})();
+
+/* ---------- Daily routine language toggle ---------- */
+(function(){
+  var bar=document.getElementById('langBar');
+  var wrap=document.getElementById('routine');
+  if(!bar||!wrap)return;
+  bar.addEventListener('click',function(e){
+    var b=e.target.closest('button');
+    if(!b)return;
+    [].slice.call(bar.querySelectorAll('button')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');
+    wrap.classList.remove('lang-en','lang-mr');
+    wrap.classList.add('lang-'+b.getAttribute('data-lang'));
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
